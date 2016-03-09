@@ -5,8 +5,6 @@
  * @version program07
  */
 
-import java.awt.Point;
-
 public class Map {
 
     public static final int DEFAULT_SIZE = 5;

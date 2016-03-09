@@ -5,9 +5,6 @@
  * @version program07
  */
 
-import java.awt.Point;
-import javax.swing.JFrame;
-
 public class Engine {
 
     private EngineFrame frame;
@@ -18,10 +15,6 @@ public class Engine {
     private static final int COLUMN_WIDTH = 10; // width of column in pixels
     private static final int VIEW_DISTANCE = 10;
 
-    public static void main(String[] args) {
-        Engine engine = new Engine();
-    }
-
     public Engine() {
         frame = new EngineFrame();
         player = new Player();
@@ -30,7 +23,7 @@ public class Engine {
 
     private void render() {
         for (int column = 0; column < COLUMNS; column++) {
-            int angle = column / COLUMNS - 0.5;
+            double angle = column / COLUMNS - 0.5;
             cast(angle);
 
         }
@@ -38,16 +31,17 @@ public class Engine {
     }
 
     private void update() {
+    	
     }
     
-    public void loop() { // start the game loop
+    public void start() { // start the game loop
         while(true) {
             update();
             render();
         }
     }
 
-    private void cast(int angle) {
+    private void cast(double angle) {
         // cast a ray from player's position in direction angle relative to
         // the player's direction in radians, drawing a rectangle with height
         // dependent on how soon the ray hits a wall
