@@ -11,6 +11,8 @@ import java.io.IOException;
  * @version program07
  */
 
+import java.awt.Point;
+
 public class Map {
 
 	private int level;
@@ -68,8 +70,20 @@ public class Map {
 			this.type = type;
 		}
 
+<<<<<<< HEAD
 		public int getType() {
 			return type;
 		}
 	}
 }
+=======
+        public Tile(int type) {
+            this.type = type;
+        }
+    }
+
+    public int distanceToWall(Point position, double angle) {
+        return 1;
+    }
+}
+>>>>>>> origin/master
