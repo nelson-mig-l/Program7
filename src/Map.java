@@ -1,27 +1,75 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * The map of the engine class.
  * 
- * @author Sam Lindbloom-Airey
+ * @author Sam Lindbloom-Airey, Tim Stoddard
  * @version program07
  */
 
 public class Map {
 
-    public static final int DEFAULT_SIZE = 5;
-    public Tile[][] map;
+	private int level;
+	private Tile[][] map;
 
-    public Map(int size) {
-        map = new Tile[size][size];
-    }
+	public Map() {
+		this(1);
+	}
 
-    public class Tile {
-    
-        public int type;
-        public static final int WALL = 1;
-        public static final int SPACE = 0;
+	public Map(int level) {
+		this.level = level;
+		read(level);
+	}
+	
+	public Tile[][] getTiles() {
+		return map;
+	}
 
-        public Tile(int type) {
-            this.type = type;
-        }
-    }
+	public void read() {
+		read(level);
+	}
+
+	public void read(int level) {
+		BufferedReader in;
+		try {
+			in = new BufferedReader(new FileReader(new File("").getAbsolutePath() + "/src/level" + level + ".txt"));
+			String[] dimensions = in.readLine().split("x");
+			map = new Tile[Integer.parseInt(dimensions[0])][Integer.parseInt(dimensions[1])];
+			for (int i = 0; i < map.length; i++) {
+				String[] data = in.readLine().split("");
+				for (int j = 0; j < map[i].length; j++) {
+					map[i][j] = new Tile(Integer.parseInt(data[j]));
+				}
+			}
+			in.close();
+			for (Tile[] sammy : map) {
+				for (Tile sam : sammy) {
+					System.out.print(sam.getType() + " ");
+				}
+				System.out.println();
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found.");
+		} catch (IOException e) {
+			System.out.println("IO Error occurred.");
+		}
+	}
+
+	private class Tile {
+
+		static final int SPACE = 0, WALL = 1;
+		int type;
+
+		public Tile(int type) {
+			this.type = type;
+		}
+
+		public int getType() {
+			return type;
+		}
+	}
 }

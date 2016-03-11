@@ -18,7 +18,7 @@ public class Engine {
     public Engine() {
         frame = new EngineFrame();
         player = new Player();
-        map = new Map(Map.DEFAULT_SIZE);
+        map = new Map(1);
     }
 
     private void render() {
@@ -27,7 +27,6 @@ public class Engine {
             cast(angle);
 
         }
-    
     }
 
     private void update() {

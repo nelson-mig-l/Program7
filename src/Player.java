@@ -13,7 +13,7 @@ public class Player {
     public int direction;
 
     public Player() {
-        this(new Point(Map.DEFAULT_SIZE, 0), 0);
+        this(new Point(0, 0), 0);
     }
     public Player(Point position, int direction) {
         this.position = position;
