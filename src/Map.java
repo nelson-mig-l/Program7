@@ -28,6 +28,10 @@ public class Map {
 	public Tile[][] getTiles() {
 		return map;
 	}
+	
+	public int getLevel() {
+		return level;
+	}
 
 	public void read() {
 		read(level);
@@ -48,7 +52,7 @@ public class Map {
 			in.close();
 			for (Tile[] sammy : map) {
 				for (Tile sam : sammy) {
-					System.out.print(sam.getType() + " ");
+					System.out.print(sam.getType() == 0 ? ".." : (sam.getType() == 1 ?"XX" : "!!"));
 				}
 				System.out.println();
 			}
@@ -65,7 +69,7 @@ public class Map {
 
 	private class Tile {
 
-		static final int SPACE = 0, WALL = 1;
+		static final int SPACE = 0, WALL = 1, FINISH = 2;
 		int type;
 
 		public Tile(int type) {

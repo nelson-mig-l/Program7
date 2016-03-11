@@ -9,7 +9,7 @@ public class Main {
 		//Engine engine = new Engine();
 		//engine.start();
 		
-		//Map mappy = new Map();
+		Map mappy = new Map(2);
 		
 //		Scores hey = new Scores();
 //		hey.addNewHighScore(100, "Tim");
