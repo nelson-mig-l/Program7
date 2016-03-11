@@ -44,8 +44,8 @@ public class Engine {
         // cast a ray from player's position in direction angle relative to
         // the player's direction in radians, drawing a rectangle with height
         // dependent on how soon the ray hits a wall
-        int someHeightFunction = 1;
+        int someHeightFunction = 1; /* should this be a double? */
         angle = player.direction + angle;
-        height = someHeightFunction * map.distanceToWall(player.position, angle);
+        double height = someHeightFunction * map.distanceToWall(player.getPos(), angle);
     }
 }
