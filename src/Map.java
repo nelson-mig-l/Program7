@@ -5,6 +5,8 @@
  * @version program07
  */
 
+import java.awt.Point;
+
 public class Map {
 
     public static final int DEFAULT_SIZE = 5;
@@ -23,5 +25,9 @@ public class Map {
         public Tile(int type) {
             this.type = type;
         }
+    }
+
+    public int distanceToWall(Point position, double angle) {
+        return 1;
     }
 }

@@ -10,12 +10,12 @@ import java.awt.Point;
 public class Player {
 
     public Point position;
-    public int direction;
+    public double direction;
 
     public Player() {
         this(new Point(Map.DEFAULT_SIZE, 0), 0);
     }
-    public Player(Point position, int direction) {
+    public Player(Point position, double direction) {
         this.position = position;
         this.direction = direction;
     }
