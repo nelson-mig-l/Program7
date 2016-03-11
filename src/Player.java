@@ -9,14 +9,14 @@ import java.awt.Point;
 
 public class Player {
 
-    public Point position;
-    public double direction;
+    public double x, y, direction;
 
     public Player() {
         this(new Point(Map.DEFAULT_SIZE, 0), 0);
     }
-    public Player(Point position, double direction) {
-        this.position = position;
+    public Player(double x, double y, double direction) {
+        this.x = x;
+        this.y = y;
         this.direction = direction;
     }
 }
