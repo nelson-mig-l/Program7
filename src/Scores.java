@@ -38,6 +38,21 @@ public class Scores {
 		}
 		return temp;
 	}
+	
+	/**
+	 * Calculates a score based on the level and time parameters.
+	 * @param level - The current level
+	 * @param ms - The time to complete the level, in milliseconds
+	 * @return The score of the level
+	 */
+	public int calcScore(int level, long ms) {
+		double coefficient =
+				level == 1 ? 1337.0 :
+				(level == 2 ? 2016.0 :
+				(level == 3 ? 4242.42 :
+				(level == 4 ? 6969.69 : 1)));
+		return Math.max((int) (coefficient / (ms / 1000.0 + (1.0 / Integer.MAX_VALUE))), 0);
+	}
 
 	/**
 	 * Adds a new high score to the list. The score must be between

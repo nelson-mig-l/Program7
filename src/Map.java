@@ -16,17 +16,44 @@ public class Map {
 	private int level;
 	private Tile[][] map;
 
+	/**
+	 * Creates a new map of level 1.
+	 */
 	public Map() {
 		this(1);
 	}
 
+	/**
+	 * Creates a new map with the specified level.
+	 * @param level
+	 */
 	public Map(int level) {
 		this.level = level;
 		read(level);
 	}
 	
-	public Tile[][] getTiles() {
-		return map;
+	/**
+	 * Returns the width of the map.
+	 * @return - the width of the map
+	 */
+	public int getWidth() {
+		return map[0].length;
+	}
+	
+	/**
+	 * Returns the height of the map.
+	 * @return - the height of the map
+	 */
+	public int getHeight() {
+		return map.length;
+	}
+	
+	/**
+	 * Returns the tile at the requested row and column on the map.
+	 * @return - the tile at the requested row and column on the map
+	 */
+	public Tile getTile(int row, int col) {
+		return map[col][row];
 	}
 	
 	public int getLevel() {
@@ -49,13 +76,17 @@ public class Map {
 					map[i][j] = new Tile(Integer.parseInt(data[j]));
 				}
 			}
-			in.close();
+			/*
 			for (Tile[] sammy : map) {
 				for (Tile sam : sammy) {
-					System.out.print(sam.getType() == 0 ? ".." : (sam.getType() == 1 ?"XX" : "!!"));
+					System.out.print(
+							sam.getType() == 0 ? "  " : // empty space
+							(sam.getType() == 1 ?"##" : // wall
+							(sam.getType() == 2 ? "!!" : // endpoint
+							"^^")));					// solution
 				}
 				System.out.println();
-			}
+			}//*/
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
 		} catch (IOException e) {
@@ -66,18 +97,4 @@ public class Map {
 	public int distanceToWall(Point position, double angle) {
         return 1;
     }
-
-	private class Tile {
-
-		static final int SPACE = 0, WALL = 1, FINISH = 2;
-		int type;
-
-		public Tile(int type) {
-			this.type = type;
-		}
-
-		public int getType() {
-			return type;
-		}
-	}
 }
