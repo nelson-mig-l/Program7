@@ -1,3 +1,10 @@
+/**
+ * Reads, writes, and stores all the scores
+ * 
+ * @author Tim Stoddard
+ * @version program007
+ */
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,40 +25,34 @@ public class Scores {
 		scores = new ArrayList<Score>();
 		read();
 	}
-	
+
 	/**
-	 * Gets the top 5 high scores, or all high scores if there are less than 5.
-	 * @return the top 5 high scores
-	 */
-	public Score[] getHighScores() {
-		return this.getHighScores(5);
-	}
-	
-	/**
-	 * Gets the specified number of high scores, or all high scores if there are less than the specified number.
+	 * Gets the specified number of high scores, or all high scores if there are
+	 * less than the specified number. Returns in String format.
+	 * 
 	 * @return the specified number of top high scores
 	 */
-	public Score[] getHighScores(int howMany) {
-		Score[] temp = new Score[Math.min(5, scores.size())];
-		for (int i = 0; i < temp.length; i++) {
-			temp[i] = scores.get(i);
+	public String getHighScores(int howMany) {
+		if (howMany < 0) {
+			throw new ArrayIndexOutOfBoundsException("negative index: " + howMany);
 		}
-		return temp;
+		String text = "";
+		int num = Math.min(howMany, scores.size());
+		for (int i = 0; i < num; i++) {
+			text += scores.get(i).score + " (" + scores.get(i).name + ")\n";
+		}
+		return text;
 	}
-	
+
 	/**
-	 * Calculates a score based on the level and time parameters.
-	 * @param level - The current level
-	 * @param ms - The time to complete the level, in milliseconds
+	 * Calculates a score based on the time parameter.
+	 * 
+	 * @param ms
+	 *            - The time to complete the level, in milliseconds
 	 * @return The score of the level
 	 */
-	public int calcScore(int level, long ms) {
-		double coefficient =
-				level == 1 ? 1337.0 :
-				(level == 2 ? 2016.0 :
-				(level == 3 ? 4242.42 :
-				(level == 4 ? 6969.69 : 1)));
-		return Math.max((int) (coefficient / (ms / 1000.0 + (1.0 / Integer.MAX_VALUE))), 0);
+	public int calcScore(long ms) {
+		return Math.max((int) (42069 / (ms / 1000.0 + (1.0 / Integer.MAX_VALUE))), 0);
 	}
 
 	/**
@@ -64,7 +65,7 @@ public class Scores {
 	 */
 	public void addNewHighScore(int newScore, String name) {
 		scores.add(new Score(newScore, name));
-
+		
 		// selection sort
 		for (int i = 0; i < scores.size(); i++) {
 			int maxPos = i;
@@ -82,8 +83,8 @@ public class Scores {
 		BufferedWriter out;
 		try {
 			out = new BufferedWriter(new FileWriter(new File("").getAbsolutePath() + "/src/high_scores.txt"));
-			for (Score score : scores) {
-				out.write(score.score + "," + score.name + "\n");
+			for (int i = 0; i < scores.size(); i++) {
+				out.write(scores.get(i).score + "," + scores.get(i).name + "\n");
 			}
 			out.close();
 		} catch (FileNotFoundException e) {
@@ -143,24 +144,24 @@ public class Scores {
 		}
 
 		/**
-		 * Compares this score to another. If scores are different, the larger
-		 * one comes first; if they are the same, the one whose name
+		 * Compares this score to another. If the scores are different, the
+		 * larger one comes first; if they are the same, the one whose name
 		 * lexicographically precedes the other comes first.
 		 */
 		@Override
-		public int compareTo(Score o) {
-			if (o == null) {
-				return -1;
+		public int compareTo(Score other) {
+			if (other == null) {
+				return Integer.MAX_VALUE;
 			}
-			if (o.getClass() != this.getClass()) {
-				return -1;
+			if (other.getClass() != this.getClass()) {
+				return Integer.MAX_VALUE;
 			}
-			if (this.score > ((Score) o).score) {
+			if (this.score > other.score) {
 				return -1;
-			} else if (this.score > ((Score) o).score) {
+			} else if (this.score < other.score) {
 				return 1;
 			}
-			return this.name.compareTo(((Score) o).name);
+			return this.name.compareTo(other.name);
 		}
 	}
 }

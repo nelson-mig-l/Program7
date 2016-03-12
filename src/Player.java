@@ -1,40 +1,56 @@
 /**
  * The player of the engine class.
  * 
- * @author Sam Lindbloom-Airey
- * @version program07
+ * @author Sam Lindbloom-Airey, Tim Stoddard
+ * @version program007
  */
 
 public class Player {
 
-	public boolean forward, backward, right, left, rotateRight, rotateLeft;
+	private boolean forward, backward, right, left, rotateRight, rotateLeft, madeItToFinish;
 	private double direction;
 	private Point position;
 	private Map map;
 
 	/**
-	 * Creates a new player with default position and direction, with the specified map.
+	 * Creates a new player with default position and direction, with the
+	 * specified map.
 	 */
 	public Player(Map map) {
 		this(new Point(0.5, 0.5), -45, map);
 	}
 
 	/**
-	 * Creates a new player with specified position and direction, with the specified map.
-	 * @param position - the player's position
-	 * @param direction - the player's direction
+	 * Creates a new player with specified position and direction, with the
+	 * specified map.
+	 * 
+	 * @param position
+	 *            - the player's position
+	 * @param direction
+	 *            - the player's direction
 	 */
 	public Player(Point position, double direction, Map map) {
-		forward = backward = right = left = rotateRight = rotateLeft = false;
+		forward = backward = right = left = rotateRight = rotateLeft = madeItToFinish = false;
 		this.position = new Point(position.x, position.y);
 		this.direction = direction;
 		this.map = map;
 	}
 	
 	/**
+	 * Returns true if the player has made it to the finish point of the current level.
+	 * @return - whether or not the player has finished the current level
+	 */
+	public boolean madeItToFinish() {
+		return madeItToFinish;
+	}
+
+	/**
 	 * Moves the player in its current direction. Detects collisions with walls.
 	 */
 	public void move() {
+		if (madeItToFinish) {
+			return;
+		}
 		double dirVel = 5;
 		if (rotateRight) {
 			direction -= dirVel;
@@ -44,40 +60,72 @@ public class Player {
 			direction += dirVel;
 			direction %= 360;
 		}
-		double radians = Math.toRadians(direction), vel = 0.04;
+		double radians = Math.toRadians(direction), vel = 0.05;
 		if (forward && !backward) {
 			double dx = vel * Math.cos(radians), dy = vel * -Math.sin(radians);
-			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+			if (position.x + dx > 0 && position.x + dx < map.getWidth()
+					&& map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.x += dx;
 			}
-			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+			if (position.y + dy > 0 && position.y + dy < map.getHeight()
+					&& map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.y += dy;
 			}
 		}
 		if (backward && !forward) {
 			double dx = vel * -Math.cos(radians), dy = vel * Math.sin(radians);
-			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+			if (position.x + dx > 0 && position.x + dx < map.getWidth()
+					&& map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.x += dx;
 			}
-			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+			if (position.y + dy > 0 && position.y + dy < map.getHeight()
+					&& map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.y += dy;
 			}
 		}
-		if (left && ! right) {
+		if (left && !right) {
 			double dx = vel * -Math.sin(radians), dy = vel * -Math.cos(radians);
-			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+			if (position.x + dx > 0 && position.x + dx < map.getWidth()
+					&& map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.x += dx;
 			}
-			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+			if (position.y + dy > 0 && position.y + dy < map.getHeight()
+					&& map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.y += dy;
 			}
 		}
 		if (right && !left) {
 			double dx = vel * Math.sin(radians), dy = vel * Math.cos(radians);
-			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+			if (position.x + dx > 0 && position.x + dx < map.getWidth()
+					&& map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.x += dx;
 			}
-			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+			if (position.y + dy > 0 && position.y + dy < map.getHeight()
+					&& map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() == Tile.FINISH) {
+					madeItToFinish = true;
+				}
 				position.y += dy;
 			}
 		}
@@ -85,6 +133,7 @@ public class Player {
 
 	/**
 	 * Returns whether or not the player is currently rotating to the right.
+	 * 
 	 * @return whether or not the player is currently rotating to the right
 	 */
 	public boolean isRotatingRight() {
@@ -93,7 +142,9 @@ public class Player {
 
 	/**
 	 * Sets whether or not the player is currently rotating to the right.
-	 * @param rotateRight - whether or not the player is currently rotating to the right
+	 * 
+	 * @param rotateRight
+	 *            - whether or not the player is currently rotating to the right
 	 */
 	public void setRotateRight(boolean rotateRight) {
 		this.rotateRight = rotateRight;
@@ -101,6 +152,7 @@ public class Player {
 
 	/**
 	 * Returns whether or not the player is currently rotating to the left.
+	 * 
 	 * @return whether or not the player is currently rotating to the left
 	 */
 	public boolean isRotatingLeft() {
@@ -109,7 +161,9 @@ public class Player {
 
 	/**
 	 * Sets whether or not the player is currently rotating to the left.
-	 * @param rotateLeft - whether or not the player is currently rotating to the left
+	 * 
+	 * @param rotateLeft
+	 *            - whether or not the player is currently rotating to the left
 	 */
 	public void setRotateLeft(boolean rotateLeft) {
 		this.rotateLeft = rotateLeft;
@@ -117,6 +171,7 @@ public class Player {
 
 	/**
 	 * Returns deep copy of the player's position.
+	 * 
 	 * @return - the player's position
 	 */
 	public Point getPos() {
@@ -125,7 +180,9 @@ public class Player {
 
 	/**
 	 * Sets the position of the player.
-	 * @param newPos - the player's new position
+	 * 
+	 * @param newPos
+	 *            - the player's new position
 	 */
 	public void setPos(Point newPos) {
 		position = new Point(newPos.x, newPos.y);
@@ -133,6 +190,7 @@ public class Player {
 
 	/**
 	 * Returns the player's current direction.
+	 * 
 	 * @return - the current direction of the player
 	 */
 	public double getDirection() {
@@ -141,7 +199,9 @@ public class Player {
 
 	/**
 	 * Sets the player's direction.
-	 * @param direction - the player's new direction
+	 * 
+	 * @param direction
+	 *            - the player's new direction
 	 */
 	public void setDirection(double direction) {
 		this.direction = direction;
@@ -149,6 +209,7 @@ public class Player {
 
 	/**
 	 * Returns true if the player is moving forward, or false otherwise.
+	 * 
 	 * @return true if the player is moving forward, or false otherwise
 	 */
 	public boolean isForward() {
@@ -156,7 +217,8 @@ public class Player {
 	}
 
 	/**
-	 * @param forward - whether or not the player is currently moving forward
+	 * @param forward
+	 *            - whether or not the player is currently moving forward
 	 */
 	public void setForward(boolean forward) {
 		this.forward = forward;
@@ -164,6 +226,7 @@ public class Player {
 
 	/**
 	 * Returns true if the player is moving backwards, or false otherwise.
+	 * 
 	 * @return true if the player is moving backwards, or false otherwise
 	 */
 	public boolean isBackward() {
@@ -171,7 +234,8 @@ public class Player {
 	}
 
 	/**
-	 * @param backward - whether or not the player is currently moving backward
+	 * @param backward
+	 *            - whether or not the player is currently moving backward
 	 */
 	public void setBackward(boolean backward) {
 		this.backward = backward;
@@ -179,6 +243,7 @@ public class Player {
 
 	/**
 	 * Returns true if the player is moving to the right, or false otherwise.
+	 * 
 	 * @return true if the player is moving to the right, or false otherwise
 	 */
 	public boolean isRight() {
@@ -186,7 +251,8 @@ public class Player {
 	}
 
 	/**
-	 * @param right - whether or not the player is currently moving to the right
+	 * @param right
+	 *            - whether or not the player is currently moving to the right
 	 */
 	public void setRight(boolean right) {
 		this.right = right;
@@ -194,6 +260,7 @@ public class Player {
 
 	/**
 	 * Returns true if the player is moving to the left, or false otherwise.
+	 * 
 	 * @return true if the player is moving to the left, or false otherwise
 	 */
 	public boolean isLeft() {
@@ -201,11 +268,11 @@ public class Player {
 	}
 
 	/**
-	 * @param left - whether or not the player is currently moving to the left
+	 * @param left
+	 *            - whether or not the player is currently moving to the left
 	 */
 	public void setLeft(boolean left) {
 		this.left = left;
 	}
-	
-	
+
 }

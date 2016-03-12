@@ -1,8 +1,8 @@
 /**
  * A simple java game engine that uses raycasting.
  * 
- * @author Sam Lindbloom-Airey
- * @version program07
+ * @author Sam Lindbloom-Airey, Tim Stoddard
+ * @version program007
  */
 
 public class Engine {
@@ -30,6 +30,11 @@ public class Engine {
 
 	private void update() {
 		frame.getPlayer().move();
+		if (!frame.getPlayer().madeItToFinish()) {
+			frame.repaint();
+		} else {
+			frame.nextLevel();
+		}
 	}
 
 	/**
@@ -44,7 +49,6 @@ public class Engine {
 			} catch (InterruptedException e) {
 				// do nothing #yolo
 			}
-			frame.repaint();
 		}
 	}
 
