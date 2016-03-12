@@ -52,7 +52,7 @@ public class Scores {
 	 * @return The score of the level
 	 */
 	public int calcScore(long ms) {
-		return Math.max((int) (42069 / (ms / 1000.0 + (1.0 / Integer.MAX_VALUE))), 0);
+		return Math.max((int) (42069420 / (ms / 1000.0 + (1.0 / Integer.MAX_VALUE))), 0);
 	}
 
 	/**

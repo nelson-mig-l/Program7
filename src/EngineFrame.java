@@ -125,7 +125,7 @@ public class EngineFrame extends JFrame {
 				case KeyEvent.VK_C:
 					cheatMode = !cheatMode;
 					break;
-				case KeyEvent.VK_1:
+				/*case KeyEvent.VK_1:
 					updateMap(1);
 					break;
 				case KeyEvent.VK_2:
@@ -136,7 +136,7 @@ public class EngineFrame extends JFrame {
 					break;
 				case KeyEvent.VK_4:
 					updateMap(4);
-					break;
+					break;*/
 				case KeyEvent.VK_Q:
 					player.setRotateLeft(true);
 					break;
