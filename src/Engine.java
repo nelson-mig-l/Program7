@@ -7,7 +7,6 @@
 
 public class Engine {
 
-	private Player player;
 	private EngineFrame frame;
 
 	private static final int COLUMNS = 100; // number of vertical columns
@@ -18,8 +17,7 @@ public class Engine {
 	 * Creates a new Engine to run the game.
 	 */
 	public Engine() {
-		player = new Player();
-		frame = new EngineFrame(player);
+		frame = new EngineFrame();
 	}
 
 	private void render() {
@@ -31,7 +29,7 @@ public class Engine {
 	}
 
 	private void update() {
-		player.move();
+		frame.getPlayer().move();
 	}
 
 	/**
@@ -55,7 +53,7 @@ public class Engine {
 		// the player's direction in radians, drawing a rectangle with height
 		// dependent on how soon the ray hits a wall
 		double someHeightFunction = 1;
-		angle = player.getDirection() + angle;
-		double height = someHeightFunction * frame.getMap().distanceToWall(player.getPos(), angle);
+		angle = frame.getPlayer().getDirection() + angle;
+		double height = someHeightFunction * frame.getMap().distanceToWall(frame.getPlayer().getPos(), angle);
 	}
 }

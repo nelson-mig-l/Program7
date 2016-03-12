@@ -10,30 +10,32 @@ public class Player {
 	public boolean forward, backward, right, left, rotateRight, rotateLeft;
 	private double direction;
 	private Point position;
+	private Map map;
 
 	/**
-	 * Creates a new player with default position and direction.
+	 * Creates a new player with default position and direction, with the specified map.
 	 */
-	public Player() {
-		this(new Point(0, 0), -45);
+	public Player(Map map) {
+		this(new Point(0.5, 0.5), -45, map);
 	}
 
 	/**
-	 * Creates a new player with specified position and direction.
+	 * Creates a new player with specified position and direction, with the specified map.
 	 * @param position - the player's position
 	 * @param direction - the player's direction
 	 */
-	public Player(Point position, double direction) {
+	public Player(Point position, double direction, Map map) {
+		forward = backward = right = left = rotateRight = rotateLeft = false;
 		this.position = new Point(position.x, position.y);
 		this.direction = direction;
-		forward = backward = right = left = rotateRight = rotateLeft = false;
+		this.map = map;
 	}
 	
 	/**
-	 * Moves the player in its current direction.
+	 * Moves the player in its current direction. Detects collisions with walls.
 	 */
 	public void move() {
-		double dirVel = 2;
+		double dirVel = 5;
 		if (rotateRight) {
 			direction -= dirVel;
 			direction %= 360;
@@ -42,22 +44,42 @@ public class Player {
 			direction += dirVel;
 			direction %= 360;
 		}
-		double radians = Math.toRadians(direction), vel = 0.1;
-		if (forward) {
-			position.x += vel * Math.cos(radians);
-			position.y += vel * -Math.sin(radians);
+		double radians = Math.toRadians(direction), vel = 0.04;
+		if (forward && !backward) {
+			double dx = vel * Math.cos(radians), dy = vel * -Math.sin(radians);
+			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				position.x += dx;
+			}
+			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				position.y += dy;
+			}
 		}
-		if (backward) {
-			position.x -= vel * Math.cos(radians);
-			position.y -= vel * -Math.sin(radians);
+		if (backward && !forward) {
+			double dx = vel * -Math.cos(radians), dy = vel * Math.sin(radians);
+			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				position.x += dx;
+			}
+			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				position.y += dy;
+			}
 		}
-		if (left) {
-			position.x += vel * -Math.sin(radians);
-			position.y += vel * -Math.cos(radians);
+		if (left && ! right) {
+			double dx = vel * -Math.sin(radians), dy = vel * -Math.cos(radians);
+			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				position.x += dx;
+			}
+			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				position.y += dy;
+			}
 		}
-		if (right) {
-			position.x += vel * Math.sin(radians);
-			position.y += vel * Math.cos(radians);
+		if (right && !left) {
+			double dx = vel * Math.sin(radians), dy = vel * Math.cos(radians);
+			if (map.getTile((int) (position.x + dx), (int) (position.y)).getType() != Tile.WALL) {
+				position.x += dx;
+			}
+			if (map.getTile((int) (position.x), (int) (position.y + dy)).getType() != Tile.WALL) {
+				position.y += dy;
+			}
 		}
 	}
 

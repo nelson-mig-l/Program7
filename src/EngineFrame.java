@@ -7,6 +7,8 @@
 
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JFrame;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -23,11 +25,10 @@ public class EngineFrame extends JFrame {
 	/**
 	 * Creates a new EngineFrame to display and render the game.
 	 */
-	public EngineFrame(Player player) {
+	public EngineFrame() {
 		super("lmao");
 		
-		map = new Map(4);
-		this.player = player;
+		updateMap(4);
 		cheatMode = false;
 
 		setSize(700, 700);
@@ -65,16 +66,16 @@ public class EngineFrame extends JFrame {
 					cheatMode = !cheatMode;
 					break;
 				case KeyEvent.VK_1:
-					map = new Map(1);
+					updateMap(1);
 					break;
 				case KeyEvent.VK_2:
-					map = new Map(2);
+					updateMap(2);
 					break;
 				case KeyEvent.VK_3:
-					map = new Map(3);
+					updateMap(3);
 					break;
 				case KeyEvent.VK_4:
-					map = new Map(4);
+					updateMap(4);
 					break;
 				case KeyEvent.VK_Q:
 					player.setRotateLeft(true);
@@ -125,6 +126,19 @@ public class EngineFrame extends JFrame {
 	public Map getMap() {
 		return map;
 	}
+	
+	/**
+	 * Returns the player.
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+	
+	private void updateMap(int level) {
+		map = new Map(level);
+		player = new Player(map);
+	}
 
 	/**
 	 * 
@@ -145,6 +159,8 @@ public class EngineFrame extends JFrame {
 		// actually painting goes here
 		
 		/* temporary graphics */
+		int scale = 25;
+		java.awt.Graphics2D g2 = (java.awt.Graphics2D) g;
 		for (int i = 0; i < map.getHeight(); i++) {
 			for (int j = 0; j < map.getWidth(); j++) {
 				int type = map.getTile(i, j).getType();
@@ -156,28 +172,29 @@ public class EngineFrame extends JFrame {
 					g.setColor(Color.red);
 				} else if (type == Tile.SHOW_PATH) {
 					if (!cheatMode) {
-						g.setColor(Color.white);
+						g2.setColor(Color.white);
 					} else {
-						g.setColor(Color.yellow);
+						g2.setColor(Color.yellow);
 					}
 				}
-				g.fillRect(i*20, j*20 + 20, 20, 20);
+				g2.fillRect(i*scale, j*scale, scale, scale);
 			}
 		}
-		java.awt.Graphics2D g2 = (java.awt.Graphics2D) g;
 		g2.setColor(Color.green);
 		double angle = Math.toRadians(360-player.getDirection()+90);
-		g2.rotate(angle, player.getPos().x*20, player.getPos().y*20);
+		g2.rotate(angle, player.getPos().x*scale, player.getPos().y*scale);
+		g2.setColor(Color.red);
 		g2.fillPolygon(new int[] {
-				(int) (player.getPos().x*20)-10, (int) (player.getPos().x*20), (int) (player.getPos().x*20)+10
+				(int) (player.getPos().x*scale)-4, (int) (player.getPos().x*scale), (int) (player.getPos().x*scale)+4
 		}, new int[] {
-				(int) (player.getPos().y*20)+10, (int) (player.getPos().y*20)-30, (int) (player.getPos().y*20)+10
+				(int) (player.getPos().y*scale)+5, (int) (player.getPos().y*scale)-5, (int) (player.getPos().y*scale)+5
 		}, 3);
-		g2.rotate(-angle, player.getPos().x*20, player.getPos().y*20);
-		g.setColor(Color.black);
-		g.drawString(player.getDirection()+"", 100, 700);
-		g.drawString("x: "+player.getPos().x, 100, 720);
-		g.drawString("y: "+player.getPos().y, 100, 740);
+		g2.rotate(-angle, player.getPos().x*scale, player.getPos().y*scale);
+		g2.setColor(Color.black);
+		g2.setFont(new Font("Helvetica", Font.PLAIN, 1));
+		g2.drawString(player.getDirection()+"", 3, 33);
+		g2.drawString("x: "+player.getPos().x, 13, 33);
+		g2.drawString("y: "+player.getPos().y, 23, 33);
 		/* end of temporary graphics */
 	}
 }
