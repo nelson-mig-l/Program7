@@ -20,6 +20,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 
+import java.util.Arrays;
+
 public class EngineFrame extends JFrame {
 
 	// double buffering
@@ -31,7 +33,7 @@ public class EngineFrame extends JFrame {
 	private boolean cheatMode;
 	private int currLevel;
 	private long startTime;
-    private double[] fieldOfView;
+    private double[] fieldOfVision;
 
    /**
     * Creates a new EngineFrame to display and render the game.
@@ -146,7 +148,6 @@ public class EngineFrame extends JFrame {
             }
          }
       });
->>>>>>> e6e3c6fb1596c78ad209ce775833d6e19379db32
 
       scores = new Scores();
       init();
@@ -190,9 +191,10 @@ public class EngineFrame extends JFrame {
             System.exit(1);
          }
       }
+   }
 
-    public void setFieldOfView(double[] fieldOfView) {
-        this.fieldOfView = Array.copyOf(fieldOfView, fieldOfView.length); 
+    public void setFieldOfVision(double[] fieldOfVision) {
+        this.fieldOfVision = Arrays.copyOf(fieldOfVision, fieldOfVision.length); 
     }
 
    private String stripNonAlpha(String text) {
