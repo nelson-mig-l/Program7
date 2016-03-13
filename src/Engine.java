@@ -65,10 +65,17 @@ public class Engine {
      * @param angle the angle of the ray, relative to the player's direction
      * @return distance to the wall along the angle
      */
+<<<<<<< HEAD
    private double cast(double angle) {
       // cast a ray from player's position in direction angle relative to
       // the player's direction in radians, drawing a rectangle with height
       // dependent on how soon the ray hits a wall
+=======
+	private double cast(double angle) {
+		// cast a ray from player's position in direction angle relative to
+		// the player's direction in radians, drawing a rectangle with height
+		// dependent on how soon the ray hits a wall
+>>>>>>> origin/master
 
         // get the player's position and direction for ease of reference
         double direction = frame.getPlayer().getDirection() + angle;
@@ -142,5 +149,10 @@ public class Engine {
         
         return vWallFound ? vDistance : (hWallFound ? hDistance : -1000);
 
+<<<<<<< HEAD
    }
 }
+=======
+	}
+}
+>>>>>>> origin/master
