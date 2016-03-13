@@ -25,9 +25,9 @@ public class Engine {
    private void render() {
       double[] fieldOfVision = new double[COLUMNS];
       for (int column = 0; column < COLUMNS; column++) {
-         //fieldOfVision[column] = cast(column / COLUMNS - 0.5);
+         fieldOfVision[column] = cast(column / COLUMNS - 0.5);
       }
-      //frame.setFieldOfVision(fieldOfVision);
+      frame.setFieldOfVision(fieldOfVision);
    }
 
    private void update() {

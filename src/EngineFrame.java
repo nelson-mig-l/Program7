@@ -56,6 +56,8 @@ public class EngineFrame extends JFrame {
          public void paintComponent(Graphics g) {
 
             Graphics2D g2 = (Graphics2D) g;
+            
+            drawWalls(g2);
 
             drawMiniMap(g2, 500, 0);
          }
@@ -237,6 +239,15 @@ public class EngineFrame extends JFrame {
    private void updateMap(int level) {
       map = new Map(level);
       player = new Player(map);
+   }
+   
+   private void drawWalls(Graphics2D g2) {
+      if (this.fieldOfVision != null) {
+         int scale = 10;
+         for (int i = 0; i < fieldOfVision.length; i++) {
+            g2.fillRect(i * scale, 0, scale - 2, (int) (fieldOfVision[i] * 100));
+         }
+      }
    }
 
    private void drawMiniMap(Graphics2D g2, int dx, int dy) {
