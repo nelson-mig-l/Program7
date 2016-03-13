@@ -57,7 +57,18 @@ public class Engine {
 		// the player's direction in radians, drawing a rectangle with height
 		// dependent on how soon the ray hits a wall
 		double someHeightFunction = 1;
-		angle = frame.getPlayer().getDirection() + angle;
-		double height = someHeightFunction * frame.getMap().distanceToWall(frame.getPlayer().getPos(), angle);
+        double direction = frame.getPlayer().getDirection() + angle;
+        double playerX = frame.getPlayer().
+        int xDirection = ((direction > 0 && direction < Math.PI/2.0) 
+                || (direction > 3.0*Math.PI/2.0 && direction < 2.0*Math.PI)) ? 1 : -1;
+        int yDirection = ((direction >= 0 && direction < Math.PI) 
+                || (direction >= Math.PI && direction <= 2.0*Math.PI)) ? 1 : -1;
+        int mapX = (int) frame.getPlayer().getPos().x;
+        int mapY = (int) frame.getPlayer().getPos().y;
+
+        // finding horizontal intersections
+        // finding vertical intersections
+		double height = someHeightFunction * frame.getMap().distanceToWall(
+                frame.getPlayer().getPos(), angle);
 	}
 }
