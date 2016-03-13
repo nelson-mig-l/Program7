@@ -22,9 +22,7 @@ public class Engine {
 
 	private void render() {
 		for (int column = 0; column < COLUMNS; column++) {
-			double angle = column / COLUMNS - 0.5;
-			cast(angle);
-
+			double distance = cast(column / COLUMNS - 0.5);
 		}
 	}
 
@@ -93,14 +91,14 @@ public class Engine {
         currentX = playerX + (mapY - playerY) / Math.tan(direction);
         deltaY = 1;
         deltaX = deltaY / Math.tan(direction);      
-        rWallFound = false;
+        hWallFound = false;
         hDistance = 0;
-        while (!rWallFound && hDistance < VIEW_DISTANCE) {
+        while (!hWallFound && hDistance < VIEW_DISTANCE) {
             Tile tile = frame.getMap().getTile((int) currentX, (int) currentY);
-            hDistance = Math.sqrt(Math.pow(currentX - playerX, 2), 
-                    Math.pow(currentY - playerY, 2));
+            hDistance = Math.sqrt(Math.pow(currentX - playerX, 2) 
+                    + Math.pow(currentY - playerY, 2));
             if (tile.getType() == Tile.WALL) {
-                rWallFound = true;
+                hWallFound = true;
             }
             currentY += deltaY;
             currentX += deltaX;
@@ -112,10 +110,11 @@ public class Engine {
         deltaX = 1;
         deltaY = deltaX / Math.tan(direction);
         vWallFound = false;
+        vDistance = 0;
         while (!vWallFound && vDistance < VIEW_DISTANCE) {
             Tile tile = frame.getMap().getTile((int) currentX, (int) currentY);
-            vDistance = Math.sqrt(Math.pow(currentX - playerX, 2), 
-                    Math.pow(currentY - playerY, 2));
+            vDistance = Math.sqrt(Math.pow(currentX - playerX, 2)
+                    + Math.pow(currentY - playerY, 2));
             if (tile.getType() == Tile.WALL) {
                 vWallFound = true;
             }
