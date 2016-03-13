@@ -1,3 +1,4 @@
+
 /**
  * Frame to display the engine
  * 
@@ -168,8 +169,8 @@ public class EngineFrame extends JFrame {
       if (currLevel > 4) { // user wins!
          String name = (String) JOptionPane.showInputDialog(this,
                "Congrats! You win!\nPlease enter your name "
-               + "(letters/numbers only).\nA max of 20 "
-               + "characters will be saved.",
+                     + "(letters/numbers only).\nA max of 20 "
+                     + "characters will be saved.",
                null, JOptionPane.PLAIN_MESSAGE, null, null, null);
          scores.addNewHighScore(scores.calcScore(totalTime),
                name == null ? "null" : stripNonAlpha(name));
