@@ -28,43 +28,33 @@ public class Keyboard implements KeyListener {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
                 player.setForward(true);
+                player.speed = 1;
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
                 player.setBackward(true);
+                player.speed = -1;
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
                 player.setRight(true);
+                player.sideSpeed = 1;
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
                 player.setLeft(true);
+                player.sideSpeed = -1;
                 break;
             case KeyEvent.VK_C:
                 //cheatMode = !cheatMode;
                 break;
-
-                /* remove this later 
-            case KeyEvent.VK_1:
-                updateMap(1);
-                break;
-            case KeyEvent.VK_2:
-                updateMap(2);
-                break;
-            case KeyEvent.VK_3:
-                updateMap(3);
-                break;
-            case KeyEvent.VK_4:
-                updateMap(4);
-                break;
-                /* end remove this later */
-
             case KeyEvent.VK_Q:
                 player.setRotateLeft(true);
+                player.rotating = -1;
                 break;
             case KeyEvent.VK_E:
                 player.setRotateRight(true);
+                player.rotating = 1;
                 break;
             case KeyEvent.VK_SPACE:
                 player.moveFast();
@@ -79,24 +69,30 @@ public class Keyboard implements KeyListener {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
                 player.setForward(false);
+                player.speed = 0;
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
                 player.setBackward(false);
+                player.speed = 0;
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
                 player.setRight(false);
+                player.sideSpeed = 0;
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
                 player.setLeft(false);
+                player.sideSpeed = 0;
                 break;
             case KeyEvent.VK_Q:
                 player.setRotateLeft(false);
+                player.rotating = 0;
                 break;
             case KeyEvent.VK_E:
                 player.setRotateRight(false);
+                player.rotating = 0;
                 break;
         }
     }
