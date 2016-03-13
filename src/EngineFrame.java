@@ -56,8 +56,8 @@ public class EngineFrame extends JFrame {
 
             Graphics2D g2 = (Graphics2D) g;
 
-            draw3D(g2);
             drawMiniMap(g2, 500, 0);
+            draw3D(g2);
          }
       });
 
@@ -87,13 +87,9 @@ public class EngineFrame extends JFrame {
                      * fieldOfVision[i] * scale));
          g2.setColor(Color.green);
          g2.drawLine((int) (player.getPos().x * scale + dx),
-               (int) (player.getPos().y * scale),
-               (int) (player.getPos().x
-                     + Math.cos(player.getDirection()) * fieldOfVision[i] 
-                     * scale + dx),
-               (int) (player.getPos().y + Math.sin(player.getDirection())
-                     * fieldOfVision[i] * scale));
-
+               (int) (player.getPos().y * scale + dy),
+               (int) (Math.cos(player.getDirection()) * scale + dx),
+               (int) (Math.sin(player.getDirection()) * scale + dy));
 
          System.out.println((int) player.getPos().x + "  "
                + (int) player.getPos().y + "  "
