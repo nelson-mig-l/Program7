@@ -237,6 +237,10 @@ public class EngineFrame extends JFrame {
 		return new String(chars).replace(".", "");
 	}
 
+    public void setFieldOfView(double[] fieldOfView) {
+        
+    }
+
 	/**
 	 * Returns the current map.
 	 * 

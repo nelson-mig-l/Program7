@@ -10,8 +10,9 @@ public class Engine {
 	private EngineFrame frame;
 
 	private static final int COLUMNS = 100; // number of vertical columns
-	private static final int COLUMN_WIDTH = 10; // width of column in pixels
+	private static final int COLUMN_WIDTH = 2; // width of column in pixels
 	private static final int VIEW_DISTANCE = 20;
+    private static final int WALL_HEIGHT = 400; // height of walls in pixels
 
 	/**
 	 * Creates a new Engine to run the game.
@@ -21,9 +22,11 @@ public class Engine {
 	}
 
 	private void render() {
+        double[] fieldOfVision = new double[COLUMNS];
 		for (int column = 0; column < COLUMNS; column++) {
-			double distance = cast(column / COLUMNS - 0.5);
+            fieldOfVision[column] = cast(column / COLUMNS - 0.5);
 		}
+        frame.setFieldOfVision(fieldOfVision);
 	}
 
 	private void update() {
