@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class Player {
 
-   private boolean forward, backward, right, left, rotateRight, rotateLeft,
+   public boolean forward, backward, right, left, rotateRight, rotateLeft,
          madeItToFinish, movingFast, canMoveFast, canRotate;
    private static final double moveFastVel = 2.5;
    private double direction;

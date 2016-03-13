@@ -20,9 +20,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 
+import java.util.Arrays;
+
 public class EngineFrame extends JFrame {
 
-   private Image dbImage; // for double buffering
+   // double buffering
+   private Image dbImage;
    private Graphics dbg;
    private Map map;
    private Player player;
@@ -30,6 +33,7 @@ public class EngineFrame extends JFrame {
    private boolean cheatMode;
    private int currLevel;
    private long startTime;
+   private double[] fieldOfVision;
 
    /**
     * Creates a new EngineFrame to display and render the game.
@@ -50,7 +54,7 @@ public class EngineFrame extends JFrame {
          }
 
          public void paintComponent(Graphics g) {
-            
+
             Graphics2D g2 = (Graphics2D) g;
 
             drawMiniMap(g2, 500, 0);
@@ -71,6 +75,8 @@ public class EngineFrame extends JFrame {
                case KeyEvent.VK_UP:
                case KeyEvent.VK_W:
                   player.setForward(true);
+                  player.madeItToFinish = true;
+                  currLevel = 5;
                   break;
                case KeyEvent.VK_DOWN:
                case KeyEvent.VK_S:
@@ -161,13 +167,18 @@ public class EngineFrame extends JFrame {
    }
 
    public void nextLevel() {
-      long totalTime = System.currentTimeMillis() - startTime;
       currLevel++;
+      if (1 <= currLevel && currLevel <= 4) {
+         updateMap(currLevel);
+      }
       if (currLevel > 4) { // user wins!
+         long totalTime = System.currentTimeMillis() - startTime;
          scores.addNewHighScore(scores.calcScore(totalTime),
-               stripNonAlpha((String) JOptionPane.showInputDialog(this,
-                     "Congrats! You win!\nPlease enter your name.", null,
-                     JOptionPane.PLAIN_MESSAGE, null, null, null)));
+               stripNonAlphaNumeric((String) JOptionPane.showInputDialog(this,
+                     "Congrats! You win!\nPlease enter your name "
+                           + "(numbers/digits only).\nA maximum of 20 "
+                           + "characters will be saved.",
+                     null, JOptionPane.PLAIN_MESSAGE, null, null, null)));
 
          // pause for dramatic effect
          try {
@@ -187,36 +198,13 @@ public class EngineFrame extends JFrame {
             System.exit(1);
          }
       }
-
-<<<<<<< HEAD
-      // pause for dramatic effect
-      try {
-         Thread.sleep(500);
-      } catch (InterruptedException e) {
-         // do nothing #yolo
-      }
-=======
-    public void setFieldOfView(double[] fieldOfView) {
-        
-    }
-
-	/**
-	 * Returns the current map.
-	 * 
-	 * @return The current map
-	 */
-	public Map getMap() {
-		return map;
-	}
->>>>>>> origin/master
-
-      // load up the new level
-      map = new Map(currLevel);
-      player = new Player(map);
    }
 
-<<<<<<< HEAD
-   private String stripNonAlpha(String text) {
+   public void setFieldOfVision(double[] fieldOfVision) {
+      this.fieldOfVision = Arrays.copyOf(fieldOfVision, fieldOfVision.length);
+   }
+
+   private String stripNonAlphaNumeric(String text) {
       char[] chars = text.toCharArray();
       for (int i = 0; i < chars.length; i++) {
          if (!Character.isAlphabetic(chars[i]) && !Character.isDigit(chars[i])
@@ -224,13 +212,14 @@ public class EngineFrame extends JFrame {
             chars[i] = '.';
          }
       }
-      return new String(chars).replace(".", "");
+      String temp = new String(chars).replace(".", "");
+      return temp.length() > 20 ? temp.substring(0, 20) : temp;
    }
 
    /**
     * Returns the current map.
     * 
-    * @return The current map
+    * @return the current map
     */
    public Map getMap() {
       return map;
@@ -249,13 +238,11 @@ public class EngineFrame extends JFrame {
       map = new Map(level);
       player = new Player(map);
    }
-   
+
    private void drawMiniMap(Graphics2D g2, int dx, int dy) {
       int scale = 10;
       for (int i = 0; i < map.getWidth(); i++) {
-         System.out.println("i" + i);
          for (int j = 0; j < map.getWidth(); j++) {
-            System.out.print("j" + j + " ");
             int type = map.getTile(i, j).getType();
             if (type == Tile.SPACE) {
                g2.setColor(Color.white);
@@ -289,7 +276,7 @@ public class EngineFrame extends JFrame {
             3);
       g2.rotate(-angle, player.getPos().x * scale + dx,
             player.getPos().y * scale + dy);
-      
+
       // draw stats
       g2.setColor(Color.cyan);
       g2.fillRect(505 + dx, 8 + dy, 105, 100);
@@ -297,10 +284,10 @@ public class EngineFrame extends JFrame {
       g2.setFont(new Font("Helvetica", Font.PLAIN, 30));
       g2.drawString("Level " + currLevel, 510 + dx, 40 + dy);
       g2.drawString(
-            new DecimalFormat("##.00").format(
-                  (System.currentTimeMillis() - startTime) / 1000.0),
+            new DecimalFormat("##.00")
+                  .format((System.currentTimeMillis() - startTime) / 1000.0),
             510 + dx, 80 + dy);
-      
+
       // draw move fast status
       if (player.canMoveFast()) {
          g2.setColor(Color.green);
@@ -310,10 +297,3 @@ public class EngineFrame extends JFrame {
       g2.fillRect(510 + dx, 150 + dy, 30, 30);
    }
 }
-=======
-	private void updateMap(int level) {
-		map = new Map(level);
-		player = new Player(map);
-	}
-}
->>>>>>> origin/master
