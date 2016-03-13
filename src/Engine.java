@@ -26,7 +26,8 @@ public class Engine {
       double[] fieldOfVision = new double[COLUMNS];
       for (int column = 0; column < COLUMNS; column++) {
          fieldOfVision[column] = 
-             cast(((double) column / (double) COLUMNS) - 0.5);
+             WALL_HEIGHT 
+             * cast(((double) column / (double) COLUMNS) - 0.5);
       }
       frame.setFieldOfVision(fieldOfVision);
    }

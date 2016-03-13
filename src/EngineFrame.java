@@ -84,11 +84,12 @@ public class EngineFrame extends JFrame {
             g2.drawLine((int) (player.getPos().x * 10 + 500), 
                     (int) (player.getPos().y * 10),
                     (int) (player.getPos().x 
-                    + Math.cos(player.getDirection()) * fieldOfVision[i]
+                    + Math.cos(player.getDirection()) * fieldOfVision[i] 
+                    / 400
                     * 10 + 500),
                     (int) (player.getPos().y 
                     + Math.sin(player.getDirection()) 
-                    * fieldOfVision[i] * 10));
+                    * fieldOfVision[i] / 400 * 10));
 
             System.out.println((int) player.getPos().x 
                     + "  " + (int) player.getPos().y + "  " + 
