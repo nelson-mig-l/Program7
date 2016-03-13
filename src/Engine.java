@@ -22,8 +22,10 @@ public class Engine {
 
 	private void render() {
         double[] fieldOfVision = new double[COLUMNS];
+        System.out.println(cast(0));
 		for (int column = 0; column < COLUMNS; column++) {
-            fieldOfVision[column] = cast(column / COLUMNS - 0.5);
+            fieldOfVision[column] = Math.cos(frame.getPlayer().getDirection()) 
+                * WALL_HEIGHT / cast((((double) column / (double) COLUMNS) - 0.5) * 2);
 		}
         frame.setFieldOfVision(fieldOfVision);
 	}
@@ -85,22 +87,26 @@ public class Engine {
         mapY += yDirection == 1 ? 1 : 0;
 
         // finding intersections in range
-        double currentX, currentY, deltaX, deltaY, hDistance, vDistance;
+        double currentX, currentY, deltaX, deltaY, hDistance, vDistance, slope;
         boolean hWallFound, vWallFound;
+        slope = Math.sin(direction) / Math.cos(direction);
 
         // finding horizontal intersection point
         currentY = mapY;
         currentX = playerX + (mapY - playerY) / Math.tan(direction);
-        deltaY = 1;
-        deltaX = deltaY / Math.tan(direction);      
+        deltaY = yDirection;
+        deltaX = xDirection * slope;      
         hWallFound = false;
         hDistance = 0;
-        while (!hWallFound && hDistance < VIEW_DISTANCE) {
-            Tile tile = frame.getMap().getTile((int) currentX, (int) currentY);
+        while (!hWallFound && hDistance < VIEW_DISTANCE 
+                && frame.getMap().inBounds(currentX, currentY)) {
+            Tile tile = frame.getMap().getTile((int) currentX, 
+                    (int) currentY);
             hDistance = Math.sqrt(Math.pow(currentX - playerX, 2) 
                     + Math.pow(currentY - playerY, 2));
             if (tile.getType() == Tile.WALL) {
                 hWallFound = true;
+                break;
             }
             currentY += deltaY;
             currentX += deltaX;
@@ -109,16 +115,18 @@ public class Engine {
         // finding vertical intersections
         currentX = mapX;
         currentY = playerY + (mapX - playerX) / Math.tan(direction);
-        deltaX = 1;
-        deltaY = deltaX / Math.tan(direction);
+        deltaX = xDirection;
+        deltaY = yDirection * slope;
         vWallFound = false;
         vDistance = 0;
-        while (!vWallFound && vDistance < VIEW_DISTANCE) {
+        while (!vWallFound && vDistance < VIEW_DISTANCE
+                && frame.getMap().inBounds(currentX, currentY)) {
             Tile tile = frame.getMap().getTile((int) currentX, (int) currentY);
             vDistance = Math.sqrt(Math.pow(currentX - playerX, 2)
                     + Math.pow(currentY - playerY, 2));
             if (tile.getType() == Tile.WALL) {
                 vWallFound = true;
+                break;
             }
             currentY += deltaY;
             currentX += deltaX;
@@ -128,7 +136,7 @@ public class Engine {
             return Math.min(vDistance, hDistance);
         }
         
-        return vWallFound ? vDistance : (hWallFound ? hDistance : -1);
+        return vWallFound ? vDistance : (hWallFound ? hDistance : -1000);
 
 	}
 }
