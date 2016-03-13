@@ -72,18 +72,28 @@ public class EngineFrame extends JFrame {
    }
 
    private void draw3D(Graphics2D g2) {
+       int scale = 10, dx = 500, dy = 0;
       g2.setColor(Color.black);
       for (int i = 0; i < fieldOfVision.length; i++) {
          g2.setColor(Color.black);
          g2.fillRect(i, (int) fieldOfVision[i] / 2, 1, (int) fieldOfVision[i]);
          g2.setColor(Color.red);
-         g2.drawLine((int) (player.getPos().x * 10 + 500),
-               (int) (player.getPos().y * 10),
+         g2.drawLine((int) (player.getPos().x * scale + dx),
+               (int) (player.getPos().y * scale),
                (int) (player.getPos().x
-                     + Math.cos(player.getDirection()) * fieldOfVision[i] * 10
-                     + 500),
+                     + Math.cos(player.getDirection()) * fieldOfVision[i] 
+                     * scale + dx),
                (int) (player.getPos().y + Math.sin(player.getDirection())
-                     * fieldOfVision[i] * 10));
+                     * fieldOfVision[i] * scale));
+         g2.setColor(Color.green);
+         g2.drawLine((int) (player.getPos().x * scale + dx),
+               (int) (player.getPos().y * scale),
+               (int) (player.getPos().x
+                     + Math.cos(player.getDirection()) * fieldOfVision[i] 
+                     * scale + dx),
+               (int) (player.getPos().y + Math.sin(player.getDirection())
+                     * fieldOfVision[i] * scale));
+
 
          System.out.println((int) player.getPos().x + "  "
                + (int) player.getPos().y + "  "
