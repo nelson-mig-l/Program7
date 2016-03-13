@@ -100,8 +100,4 @@ public class Keyboard implements KeyListener {
                 break;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
