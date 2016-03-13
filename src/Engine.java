@@ -7,57 +7,58 @@
 
 public class Engine {
 
-    private EngineFrame frame;
-	private static final int COLUMNS = 500; // number of vertical columns
-	private static final int COLUMN_WIDTH = 1; // width of column in pixels
-	private static final int VIEW_DISTANCE = 20;
-    private static final int WALL_HEIGHT = 400; // height of walls in pixels
+   private EngineFrame frame;
+   private SoundLooper looper;
+   private static final int COLUMNS = 500; // number of vertical columns
+   private static final int COLUMN_WIDTH = 1; // width of column in pixels
+   private static final int VIEW_DISTANCE = 20;
+   private static final int WALL_HEIGHT = 400; // height of walls in pixels
 
-	/**
-	 * Creates a new Engine to run the game.
-	 */
-	public Engine() {
-		frame = new EngineFrame();
-	}
+   /**
+    * Creates a new Engine to run the game.
+    */
+   public Engine() {
+      frame = new EngineFrame();
+      looper = new SoundLooper();
+   }
 
-	private void render() {
-        double[] fieldOfVision = new double[COLUMNS];
-        System.out.println(cast(0));
-		for (int column = 0; column < COLUMNS; column++) {
-            fieldOfVision[column] = 
-                /*Math.cos(frame.getPlayer().getDirection()) 
-                **/ WALL_HEIGHT 
-                / cast((((double) column / (double) COLUMNS) - 0.5) * 2);
-		}
-        frame.setFieldOfVision(fieldOfVision);
-	}
+   private void render() {
+      double[] fieldOfVision = new double[COLUMNS];
+      for (int column = 0; column < COLUMNS; column++) {
+         fieldOfVision[column] = 
+             cast(((double) column / (double) COLUMNS) - 0.5);
+      }
+      frame.setFieldOfVision(fieldOfVision);
+   }
 
-	private void update() {
-		frame.getPlayer().move();
-		if (!frame.getPlayer().madeItToFinish()) {
-			frame.repaint();
-		} else {
-			frame.nextLevel();
-		}
-	}
+   private void update() {
+      frame.getPlayer().move();
+      if (!frame.getPlayer().madeItToFinish()) {
+         frame.repaint();
+      } else {
+         frame.nextLevel();
+      }
+   }
 
-	/**
-	 * Starts the game.
-	 */
-	public void start() { // start the game loop
-		while (true) {
-			update();
-			render();
-			try {
-				Thread.sleep(20);
-			} catch (InterruptedException e) {
-				// do nothing #yolo
-			}
-		}
-	}
+   /**
+    * Starts the game.
+    */
+   public void start() { // start the game loop
+      looper.loopSound();
+      while (true) {
+         update();
+         render();
+         try {
+            Thread.sleep(20);
+         } catch (InterruptedException e) {
+            // do nothing #yolo
+         }
+      }
+   }
 
     /**
-     * Cast a ray from the player's position till we hit a wall, then return the distance to the wall
+     * Cast a ray from the player's position till we hit a wall, 
+     * then return the distance to the wall
      * along the angle.
      * 
      * @param angle the angle of the ray, relative to the player's direction

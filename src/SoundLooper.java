@@ -2,7 +2,7 @@ import javax.sound.sampled.*;
 
 public class SoundLooper {
 
-   public void playSound() {
+   public void loopSound() {
       
       new Thread(new Runnable() {
          
