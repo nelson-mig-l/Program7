@@ -188,18 +188,34 @@ public class EngineFrame extends JFrame {
          }
       }
 
+<<<<<<< HEAD
       // pause for dramatic effect
       try {
          Thread.sleep(500);
       } catch (InterruptedException e) {
          // do nothing #yolo
       }
+=======
+    public void setFieldOfView(double[] fieldOfView) {
+        
+    }
+
+	/**
+	 * Returns the current map.
+	 * 
+	 * @return The current map
+	 */
+	public Map getMap() {
+		return map;
+	}
+>>>>>>> origin/master
 
       // load up the new level
       map = new Map(currLevel);
       player = new Player(map);
    }
 
+<<<<<<< HEAD
    private String stripNonAlpha(String text) {
       char[] chars = text.toCharArray();
       for (int i = 0; i < chars.length; i++) {
@@ -294,3 +310,10 @@ public class EngineFrame extends JFrame {
       g2.fillRect(510 + dx, 150 + dy, 30, 30);
    }
 }
+=======
+	private void updateMap(int level) {
+		map = new Map(level);
+		player = new Player(map);
+	}
+}
+>>>>>>> origin/master
