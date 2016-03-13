@@ -30,6 +30,7 @@ public class EngineFrame extends JFrame {
 	private boolean cheatMode;
 	private int currLevel;
 	private long startTime;
+    private double[] fieldOfView;
 
 	/**
 	 * Creates a new EngineFrame to display and render the game.
@@ -230,7 +231,8 @@ public class EngineFrame extends JFrame {
 	private String stripNonAlpha(String text) {
 		char[] chars = text.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
-			if (!Character.isAlphabetic(chars[i]) && !Character.isDigit(chars[i]) && chars[i] != 32) {
+			if (!Character.isAlphabetic(chars[i]) && 
+                    !Character.isDigit(chars[i]) && chars[i] != 32) {
 				chars[i] = '.';
 			}
 		}
@@ -238,8 +240,10 @@ public class EngineFrame extends JFrame {
 	}
 
     public void setFieldOfView(double[] fieldOfView) {
-        
+        this.fieldOfView = Array.copyOf(fieldOfView, fieldOfView.length); 
     }
+
+    public void 
 
 	/**
 	 * Returns the current map.

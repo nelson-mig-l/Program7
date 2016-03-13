@@ -9,8 +9,8 @@ public class Engine {
 
 	private EngineFrame frame;
 
-	private static final int COLUMNS = 100; // number of vertical columns
-	private static final int COLUMN_WIDTH = 2; // width of column in pixels
+	private static final int COLUMNS = 500; // number of vertical columns
+	private static final int COLUMN_WIDTH = 1; // width of column in pixels
 	private static final int VIEW_DISTANCE = 20;
     private static final int WALL_HEIGHT = 400; // height of walls in pixels
 
