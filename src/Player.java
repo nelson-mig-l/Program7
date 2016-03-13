@@ -25,7 +25,7 @@ public class Player {
     * specified map.
     */
    public Player(Map map) {
-      this(new Point(0.5, 0.5), -45, map);
+      this(new Point(0.5, 0.5), Math.PI/4, map);
    }
 
    /**
