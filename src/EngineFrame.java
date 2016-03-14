@@ -28,7 +28,7 @@ public class EngineFrame extends JFrame {
     private Map map;
     private Player player;
     private Scores scores;
-    private boolean cheatMode;
+    public boolean cheatMode;
     private int currLevel;
     private long startTime;
     private double[] fieldOfVision;
@@ -101,34 +101,24 @@ public class EngineFrame extends JFrame {
                     (int) (10 * Math.cos(player.getDirection()) * scale + dx),
                     (int) (10 * Math.sin(player.getDirection()) * scale + dy));
 
-            System.out.println((int) player.getPos().x + "  "
-                    + (int) player.getPos().y + "  "
-                    + (int) (player.getPos().x
-                        + Math.cos(player.getDirection()) * fieldOfVision[i])
-                    + "  " + (int) (player.getPos().y
-                        + Math.sin(player.getDirection()) * fieldOfVision[i]));
-
+            //printDraw3DStuff(i);
         }
+    }
+
+    private void printDraw3DStuff(int i) {
+        System.out.println((int) player.getPos().x + "  "
+                + (int) player.getPos().y + "  "
+                + (int) (player.getPos().x
+                    + Math.cos(player.getDirection()) * fieldOfVision[i])
+                + "  " + (int) (player.getPos().y
+                    + Math.sin(player.getDirection()) * fieldOfVision[i]));
     }
 
     private void drawMiniMap(Graphics2D g2, int dx, int dy) {
         int scale = 10;
         for (int i = 0; i < map.getWidth(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {
-                int type = map.getTile(i, j).getType();
-                if (type == Tile.SPACE) {
-                    g2.setColor(Color.white);
-                } else if (type == Tile.WALL) {
-                    g2.setColor(Color.black);
-                } else if (type == Tile.FINISH) {
-                    g2.setColor(Color.red);
-                } else if (type == Tile.SHOW_PATH) {
-                    if (!cheatMode) {
-                        g2.setColor(Color.white);
-                    } else {
-                        g2.setColor(Color.yellow);
-                    }
-                }
+                g2.setColor(map.getTile(i, j).getColor(cheatMode));
                 g2.fillRect(i * scale + dx, j * scale + dy, scale, scale);
             }
         }
@@ -138,13 +128,12 @@ public class EngineFrame extends JFrame {
         g2.rotate(angle, player.getPos().x * scale + dx,
                 player.getPos().y * scale + dy);
         g2.setColor(Color.red);
-        g2.fillPolygon( // replace this with bird's eye raycasting view
-                new int[] { (int) (player.getPos().x * scale) - 4 + dx,
-                (int) (player.getPos().x * scale) + dx,
-                (int) (player.getPos().x * scale) + 4 + dx },
-                new int[] { (int) (player.getPos().y * scale) + 5 + dy,
-                (int) (player.getPos().y * scale) - 5 + dy,
-                (int) (player.getPos().y * scale) + 5 + dy }, 3);
+        g2.fillPolygon(new int[] { (int) (player.getPos().x * scale) - 4 + dx,
+            (int) (player.getPos().x * scale) + dx,
+            (int) (player.getPos().x * scale) + 4 + dx },
+            new int[] { (int) (player.getPos().y * scale) + 5 + dy,
+            (int) (player.getPos().y * scale) - 5 + dy,
+            (int) (player.getPos().y * scale) + 5 + dy }, 3);
         g2.rotate(-angle, player.getPos().x * scale + dx,
                 player.getPos().y * scale + dy);
 
