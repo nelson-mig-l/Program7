@@ -55,8 +55,6 @@ public class EngineFrame extends JFrame {
             public void paintComponent(Graphics g) {
 
                 Graphics2D g2 = (Graphics2D) g;
-
-
                 drawMiniMap(g2, 500, 0);
                 draw3D(g2);
                 drawDebug(g2);
@@ -77,6 +75,7 @@ public class EngineFrame extends JFrame {
         g2.drawString("speed: " + player.speed, 20, 20);
         g2.drawString("rotating: " + player.rotating, 20, 70);
         g2.drawString("sideSpeed: " + player.sideSpeed, 20, 120);
+        g2.drawString("direction: " + player.getDirection() / Math.PI, 20, 170);
     }
 
     private void draw3D(Graphics2D g2) {
@@ -85,21 +84,16 @@ public class EngineFrame extends JFrame {
         for (int i = 0; i < fieldOfVision.length; i++) {
             fieldOfVision[i] = fieldOfVision[i] == -1 ? 20 : fieldOfVision[i];
             g2.setColor(Color.black);
-            g2.fillRect(i, (int) fieldOfVision[i] / 2, 1, 
+            g2.fillRect(i * Engine.WIDTH, (int) fieldOfVision[i] / 2, 
+                    1 * Engine.WIDTH, 
                     (int) fieldOfVision[i]);
-            g2.setColor(Color.red);
-            g2.drawLine((int) (player.getPos().x * scale + dx),
-                    (int) (player.getPos().y * scale),
-                    (int) (player.getPos().x
-                        + Math.cos(player.getDirection()) * fieldOfVision[i] 
-                        * scale + dx),
-                    (int) (player.getPos().y + Math.sin(player.getDirection())
-                        * fieldOfVision[i] * scale));
             g2.setColor(Color.green);
             g2.drawLine((int) (player.getPos().x * scale + dx),
                     (int) (player.getPos().y * scale + dy),
-                    (int) (10 * Math.cos(player.getDirection()) * scale + dx),
-                    (int) (10 * Math.sin(player.getDirection()) * scale + dy));
+                    (int) ((player.getPos().x 
+                        + Math.cos(player.getDirection())) * scale + dx),
+                    (int) ((player.getPos().y
+                        + Math.sin(player.getDirection())) * scale + dy));
 
             //printDraw3DStuff(i);
         }
@@ -128,12 +122,12 @@ public class EngineFrame extends JFrame {
         g2.rotate(angle, player.getPos().x * scale + dx,
                 player.getPos().y * scale + dy);
         g2.setColor(Color.red);
-        g2.fillPolygon(new int[] { (int) (player.getPos().x * scale) - 4 + dx,
-            (int) (player.getPos().x * scale) + dx,
-            (int) (player.getPos().x * scale) + 4 + dx },
-            new int[] { (int) (player.getPos().y * scale) + 5 + dy,
-            (int) (player.getPos().y * scale) - 5 + dy,
-            (int) (player.getPos().y * scale) + 5 + dy }, 3);
+        g2.fillPolygon(new int[] { (int) (player.getPos().x * scale) + dx,
+            (int) (player.getPos().x * scale) + 6 + dx,
+            (int) (player.getPos().x * scale) + dx },
+            new int[] { (int) (player.getPos().y * scale) + 4 + dy,
+            (int) (player.getPos().y * scale) + dy,
+            (int) (player.getPos().y * scale) - 4 + dy }, 3);
         g2.rotate(-angle, player.getPos().x * scale + dx,
                 player.getPos().y * scale + dy);
 

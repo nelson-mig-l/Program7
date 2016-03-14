@@ -9,8 +9,9 @@ public class Engine {
 
     private EngineFrame frame;
     private SoundLooper looper;
+    private static final int PIXELS = 500;
     private static final int COLUMNS = 500; // number of vertical columns
-    private static final int COLUMN_WIDTH = 1; // width of column in pixels
+    public static final int WIDTH = PIXELS / COLUMNS; // column in pixels
     private static final int VIEW_DISTANCE = 20;
     private static final int WALL_HEIGHT = 100; // height of walls in pixels
 
@@ -25,8 +26,10 @@ public class Engine {
     private void render() {
         double[] fieldOfVision = new double[COLUMNS];
         for (int column = 0; column < COLUMNS; column++) {
-            fieldOfVision[column] = WALL_HEIGHT
-                / cast(((double) column / (double) COLUMNS) - 0.5);
+            fieldOfVision[column] = 
+                //Math.cos(frame.getPlayer().getDirection()) * 
+                WALL_HEIGHT
+                / cast((((double) column / (double) COLUMNS) - 0.5) * 2.2);
         }
         frame.setFieldOfVision(fieldOfVision);
     }
@@ -97,6 +100,28 @@ public class Engine {
         boolean hWallFound, vWallFound;
         slope = Math.sin(direction) / Math.cos(direction);
 
+        deltaX = Math.cos(direction) / 50;
+        deltaY = Math.sin(direction) / 50;
+        hWallFound = false;
+        hDistance = 0;
+        currentX = playerX;
+        currentY = playerY;
+        while(!hWallFound && hDistance < VIEW_DISTANCE
+                && frame.getMap().inBounds(currentX, currentY)) {
+            Tile tile = frame.getMap().getTile((int) currentX, (int) currentY);
+            hDistance = Math.sqrt(Math.pow(currentX - playerX, 2)
+                    + Math.pow(currentY - playerY, 2));
+            if (tile.getType() == Tile.WALL) {
+                hWallFound = true;
+                break;
+            }
+            currentY += deltaY;
+            currentX += deltaX;
+        }
+        return (hWallFound) ? hDistance : -1;
+    
+
+        /*
         // finding horizontal intersection point
         currentY = mapY;
         currentX = playerX + (mapY - playerY) / slope;
@@ -142,6 +167,6 @@ public class Engine {
         }
 
         return vWallFound ? vDistance : (hWallFound ? hDistance : -1);
-
+        */
     }
 }

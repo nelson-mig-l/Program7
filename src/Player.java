@@ -20,7 +20,7 @@ public class Player {
     // player's direction they are pointing, in radians
     private double direction;
     // speed at which player moves and rotates every tick
-    private static final double moveSpeed = 0.05, rotateSpeed = 0.05;
+    private static final double moveSpeed = 0.05, rotateSpeed = 0.09;
     private Point position;
     private Map map;
     private Timer moveFastTimer, cantMoveFastTimer;
@@ -30,7 +30,7 @@ public class Player {
      * specified map.
      */
     public Player(Map map) {
-        this(new Point(0.5, 0.5), 0, map);
+        this(new Point(1.5, 1.5), 0, map);
     }
 
     /**
@@ -97,7 +97,8 @@ public class Player {
     }
 
     /**
-     * Moves the player in their current direction, and handles collision detection.
+     * Moves the player in their current direction, 
+     * and handles collision detection.
      */
     public void newMove() {
         if (madeItToFinish) {
@@ -105,13 +106,30 @@ public class Player {
         }
 
         direction += rotating * rotateSpeed;
-        direction %= (2 * Math.PI);
+        boundDirection();
         
         double dx = speed * moveSpeed * Math.cos(direction);
         double dy = speed * moveSpeed * Math.sin(direction);
 
-        position.x += dx;
-        position.y += dy;
+        if (map.inBounds(position.x + dx, position.y) 
+                && map.getTile((int) (position.x + dx), 
+                    (int) position.y).getType()
+                != Tile.WALL) {
+            position.x += dx;
+            
+        }
+        if (map.inBounds(position.x, position.y + dy) 
+                && map.getTile((int) (position.x), 
+                    (int) (position.y + dy)).getType()
+                != Tile.WALL) {
+            position.y += dy;
+            
+        }
+    }
+    
+    private void boundDirection() {
+        direction %= (2 * Math.PI);
+        direction += (direction < 0) ? (2 * Math.PI) : 0;
     }
 
 
