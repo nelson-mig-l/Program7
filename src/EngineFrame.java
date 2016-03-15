@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 import java.awt.Image;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseMotionListener;
 import java.text.DecimalFormat;
 
 import java.util.Arrays;
@@ -33,7 +34,6 @@ public class EngineFrame extends JFrame {
     private int currLevel;
     private long startTime;
     private double[] fieldOfVision;
-    private double[][] rays;
 
     /**
      * Creates a new EngineFrame to display and render the game.
@@ -187,10 +187,6 @@ public class EngineFrame extends JFrame {
         this.fieldOfVision = Arrays.copyOf(fieldOfVision, fieldOfVision.length);
     }
 
-    public void setRays(double[][] rays) {
-        this.rays = Arrays.copyOf(rays, rays.length);
-    }
-
     private String stripNonAlpha(String text) {
         char[] chars = text.toCharArray();
         for (int i = 0; i < chars.length; i++) {
@@ -224,7 +220,7 @@ public class EngineFrame extends JFrame {
     private void updateMap(int level) {
         map = new Map(level);
         player = new Player(map);
-        keyboard = new Keyboard(player);
-        addKeyListener(keyboard);
+        addKeyListener(new Keyboard(player));
+        addMouseMotionListener(new Mouse(player, this));
     }
 }

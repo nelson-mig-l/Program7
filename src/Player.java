@@ -12,14 +12,12 @@ import java.awt.event.ActionListener;
 
 public class Player {
 
-    public boolean forward, backward, right, left, rotateRight, rotateLeft,
-           madeItToFinish, movingFast, canMoveFast, canRotate, cheatMode;
+    public boolean madeItToFinish, movingFast, canMoveFast, 
+           canRotate, cheatMode;
     private static final double moveFastVel = 2.5;
-    // these two go from -1, 0, 1 and are set by keyboard input
     public int rotating, speed, sideSpeed;
-    // player's direction they are pointing, in radians
+    public double mouseTurn;
     private double direction;
-    // speed at which player moves and rotates every tick
     private static final double moveSpeed = 0.05, rotateSpeed = 0.09;
     private Point position;
     private Map map;
@@ -45,6 +43,7 @@ public class Player {
     public Player(Point position, double direction, Map map) {
         madeItToFinish = movingFast = false;
         canMoveFast = canRotate = true;
+        mouseTurn = 0;
         this.position = new Point(position.x, position.y);
         this.direction = direction;
         this.map = map;
@@ -112,6 +111,10 @@ public class Player {
         // because that's the drawback of moving fast!
         direction += canRotate ? rotating * rotateSpeed : 0;
         boundDirection();
+
+        // Mouse changes player's direction directly
+        // because otherwise it looks hella jerky
+        // and hella jerky is hella janky
 
         // find out regular movement
         double dx = speed * moveSpeed * Math.cos(direction);
