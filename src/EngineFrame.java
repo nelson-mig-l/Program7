@@ -122,7 +122,7 @@ public class EngineFrame extends JFrame {
                 player.getPos().y * scale + dy);
 
         // draw stats
-        dy += 200;
+        dy += scale * map.getHeight();
         g2.setColor(Color.cyan);
         g2.fillRect(5 + dx, dy, 105, 100);
         g2.setColor(Color.black);

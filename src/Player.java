@@ -43,7 +43,6 @@ public class Player {
      *           - the player's direction
      */
     public Player(Point position, double direction, Map map) {
-        forward = backward = right = left = rotateRight = rotateLeft = false;
         madeItToFinish = movingFast = false;
         canMoveFast = canRotate = true;
         this.position = new Point(position.x, position.y);
@@ -97,7 +96,7 @@ public class Player {
     }
 
     /**
-     * Moves the player in their current direction, 
+     * Moves the player in their current direction,
      * and handles collision detection.
      * Also handles when the player has made it to the end of the level.
      */
