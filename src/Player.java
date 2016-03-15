@@ -109,7 +109,8 @@ public class Player {
         }
 
         // do any necessary rotation
-
+        // doesn't rotate if we are moving fast
+        // because that's the drawback of moving fast!
         direction += canRotate ? rotating * rotateSpeed : 0;
         boundDirection();
 
@@ -130,6 +131,15 @@ public class Player {
         double magnitude = Math.sqrt(dx * dx + dy * dy);
         dx = dx / magnitude * moveSpeed;
         dy = dy / magnitude * moveSpeed;
+
+        // handles moving fast
+        // needs to be after speed limit because
+        // otherwise we limit the moving fast back
+        // down to the speed limit!
+        if (movingFast) {
+            dx *= moveFastVel;
+            dy *= moveFastVel;
+        }
 
         // separately collision checking x and y 
         // makes movement when you hit wall nice
