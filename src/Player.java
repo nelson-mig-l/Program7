@@ -14,7 +14,7 @@ public class Player {
 
     public boolean madeItToFinish, movingFast, canMoveFast, 
            canRotate, cheatMode;
-    private static final double moveFastVel = 2.5;
+    private static final double moveFastVel = 3.5;
     public int rotating, speed, sideSpeed;
     public double mouseTurn;
     private double direction;
@@ -58,7 +58,7 @@ public class Player {
         });
         moveFastTimer.setRepeats(false);
 
-        cantMoveFastTimer = new Timer(3000, new ActionListener() {
+        cantMoveFastTimer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 canMoveFast = true; // fully recharged!

@@ -40,8 +40,10 @@ public class Mouse implements MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         double turnAmount = e.getX() - frame.getWidth() / 2; 
-        turnAmount /= SENSITIVITY;
-        player.setDirection(player.getDirection() + turnAmount);
+        if (player.canRotate) {
+            turnAmount /= SENSITIVITY;
+            player.setDirection(player.getDirection() + turnAmount);
+        }
         robot.mouseMove(frame.getWidth() / 2, frame.getHeight() / 2);
     }
 

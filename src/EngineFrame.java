@@ -74,7 +74,8 @@ public class EngineFrame extends JFrame {
         g2.drawString("speed: " + player.speed, 20, 20);
         g2.drawString("rotating: " + player.rotating, 20, 70);
         g2.drawString("sideSpeed: " + player.sideSpeed, 20, 120);
-        g2.drawString("direction: " + player.getDirection() / Math.PI, 20, 170);
+        g2.drawString("direction: " + player.getDirection() 
+                / Math.PI, 20, 170);
     }
 
     private void draw3D(Graphics2D g2) {
@@ -84,8 +85,9 @@ public class EngineFrame extends JFrame {
             fieldOfVision[i] = fieldOfVision[i] == -1 ? 20 : fieldOfVision[i];
             g2.setColor(Color.black);
             g2.fillRect(i * Engine.WIDTH, (int) fieldOfVision[i] / 2, 
-                    1 * Engine.WIDTH, 
-                    (int) fieldOfVision[i]);
+                    Engine.WIDTH, (int) fieldOfVision[i]);
+            g2.fillRect(i * Engine.WIDTH, (int) fieldOfVision[i] / -2,
+                    Engine.WIDTH, (int) fieldOfVision[i]);
         }
     }
 

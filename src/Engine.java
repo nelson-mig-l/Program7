@@ -26,10 +26,10 @@ public class Engine {
     private void render() {
         double[] fieldOfVision = new double[COLUMNS];
         for (int column = 0; column < COLUMNS; column++) {
+            double deltaAngle = (((double) column / (double) COLUMNS) - .5) * 1.7;
             fieldOfVision[column] = 
-                //Math.cos(frame.getPlayer().getDirection()) * 
-                WALL_HEIGHT
-                / cast((((double) column / (double) COLUMNS) - 0.5) * 2.2);
+                5 * Math.cos(deltaAngle) + .7 *
+                WALL_HEIGHT / cast(deltaAngle);
         }
         frame.setFieldOfVision(fieldOfVision);
     }
