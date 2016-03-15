@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Image;
+import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 
 import java.util.Arrays;
@@ -27,8 +28,8 @@ public class EngineFrame extends JFrame {
     private Graphics dbg;
     private Map map;
     private Player player;
+    private Keyboard keyboard;
     private Scores scores;
-    public boolean cheatMode;
     private int currLevel;
     private long startTime;
     private double[] fieldOfVision;
@@ -63,8 +64,6 @@ public class EngineFrame extends JFrame {
 
         scores = new Scores();
         init();
-
-        addKeyListener(new Keyboard(player));
 
         setSize(700, 700);
         setVisible(true);
@@ -101,9 +100,9 @@ public class EngineFrame extends JFrame {
 
     private void drawMiniMap(Graphics2D g2, int dx, int dy) {
         int scale = 10;
-        for (int i = 0; i < map.getWidth(); i++) {
+        for (int i = 0; i < map.getHeight(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {
-                g2.setColor(map.getTile(i, j).getColor(cheatMode));
+                g2.setColor(map.getTile(i, j).getColor(player.getCheatMode()));
                 g2.fillRect(i * scale + dx, j * scale + dy, scale, scale);
             }
         }
@@ -114,11 +113,11 @@ public class EngineFrame extends JFrame {
                 player.getPos().y * scale + dy);
         g2.setColor(Color.red);
         g2.fillPolygon(new int[] { (int) (player.getPos().x * scale) + dx,
-            (int) (player.getPos().x * scale) + 6 + dx,
+            (int) (player.getPos().x * scale) + 10 + dx,
             (int) (player.getPos().x * scale) + dx },
-            new int[] { (int) (player.getPos().y * scale) + 4 + dy,
+            new int[] { (int) (player.getPos().y * scale) + 3 + dy,
             (int) (player.getPos().y * scale) + dy,
-            (int) (player.getPos().y * scale) - 4 + dy }, 3);
+            (int) (player.getPos().y * scale) - 3 + dy }, 3);
         g2.rotate(-angle, player.getPos().x * scale + dx,
                 player.getPos().y * scale + dy);
 
@@ -146,7 +145,6 @@ public class EngineFrame extends JFrame {
     public void init() {
         currLevel = 1;
         updateMap(currLevel);
-        cheatMode = false;
         startTime = System.currentTimeMillis();
     }
 
@@ -226,5 +224,7 @@ public class EngineFrame extends JFrame {
     private void updateMap(int level) {
         map = new Map(level);
         player = new Player(map);
+        keyboard = new Keyboard(player);
+        addKeyListener(keyboard);
     }
 }

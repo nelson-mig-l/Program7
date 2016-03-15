@@ -46,7 +46,7 @@ public class Keyboard implements KeyListener {
                 player.sideSpeed = -1;
                 break;
             case KeyEvent.VK_C:
-                //cheatMode = !cheatMode;
+                player.toggleCheatMode();
                 break;
             case KeyEvent.VK_Q:
                 player.setRotateLeft(true);

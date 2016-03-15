@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 public class Player {
 
     public boolean forward, backward, right, left, rotateRight, rotateLeft,
-           madeItToFinish, movingFast, canMoveFast, canRotate;
+           madeItToFinish, movingFast, canMoveFast, canRotate, cheatMode;
     private static final double moveFastVel = 2.5;
     // these two go from -1, 0, 1 and are set by keyboard input
     public int rotating, speed, sideSpeed;
@@ -143,6 +143,12 @@ public class Player {
             position.y += dy;
             
         }
+        
+      if (map.inBounds(position.x, position.y + dy)
+            && map.getTile((int) (position.x + dx), (int) (position.y))
+                  .getType() == Tile.FINISH) {
+         madeItToFinish = true;
+      }
     }
     
     private void boundDirection() {
@@ -403,5 +409,19 @@ public class Player {
      */
     public void setLeft(boolean left) {
         this.left = left;
+    }
+    
+    /**
+     * Toggles cheat mode on the minimap.
+     */
+    public void toggleCheatMode() {
+       cheatMode = !cheatMode;
+    }
+    
+    /**
+     * Returns true if cheat mode is currently activated, or false otherwise.
+     */
+    public boolean getCheatMode() {
+       return cheatMode;
     }
 }

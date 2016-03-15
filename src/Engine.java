@@ -35,7 +35,6 @@ public class Engine {
     }
 
     private void update() {
-        //frame.getPlayer().move();
         frame.getPlayer().newMove();
         if (!frame.getPlayer().madeItToFinish()) {
             frame.repaint();
