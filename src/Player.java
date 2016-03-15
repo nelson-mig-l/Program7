@@ -99,8 +99,11 @@ public class Player {
     /**
      * Moves the player in their current direction, 
      * and handles collision detection.
+     * Also handles when the player has made it to the end of the level.
      */
     public void newMove() {
+
+        // this does something maybe
         if (madeItToFinish) {
             return;
         }
@@ -108,12 +111,15 @@ public class Player {
         // do any necessary rotation
         direction += rotating * rotateSpeed;
         boundDirection();
-        
+
         // find out regular movement
         double dx = speed * moveSpeed * Math.cos(direction);
         double dy = speed * moveSpeed * Math.sin(direction);
 
         // add strafing movement 
+        // the swapped sin and cos result from 
+        // a pi/2 rotation plugged into the generic | dx |   | cosX -sinX |
+        // 2d rotation matrix                       | dy | x | sinX  cosX |
         dx += sideSpeed * moveSpeed * -1 * Math.sin(direction);
         dy += sideSpeed * moveSpeed * Math.cos(direction); 
 
@@ -124,6 +130,9 @@ public class Player {
         dx = dx / magnitude * moveSpeed;
         dy = dy / magnitude * moveSpeed;
 
+        // separately collision checking x and y 
+        // makes movement when you hit wall nice
+        // so we do it :D
         // bound check x
         if (map.inBounds(position.x + dx, position.y) 
                 && map.getTile((int) (position.x + dx), 
@@ -131,7 +140,6 @@ public class Player {
                 != Tile.WALL) {
             // do the x movement
             position.x += dx;
-            
         }
 
         // bound check y
@@ -141,16 +149,16 @@ public class Player {
                 != Tile.WALL) {
             // do the y movement
             position.y += dy;
-            
         }
-        
-      if (map.inBounds(position.x, position.y + dy)
-            && map.getTile((int) (position.x + dx), (int) (position.y))
-                  .getType() == Tile.FINISH) {
-         madeItToFinish = true;
-      }
+
+        // handling when you get to the end of the maze thing
+        if (map.inBounds(position.x, position.y + dy)
+                && map.getTile((int) (position.x + dx), (int) (position.y))
+                .getType() == Tile.FINISH) {
+            madeItToFinish = true;
+        }
     }
-    
+
     private void boundDirection() {
         direction %= (2 * Math.PI);
         direction += (direction < 0) ? (2 * Math.PI) : 0;
@@ -410,18 +418,18 @@ public class Player {
     public void setLeft(boolean left) {
         this.left = left;
     }
-    
+
     /**
      * Toggles cheat mode on the minimap.
      */
     public void toggleCheatMode() {
-       cheatMode = !cheatMode;
+        cheatMode = !cheatMode;
     }
-    
+
     /**
      * Returns true if cheat mode is currently activated, or false otherwise.
      */
     public boolean getCheatMode() {
-       return cheatMode;
+        return cheatMode;
     }
 }
