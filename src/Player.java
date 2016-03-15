@@ -109,7 +109,8 @@ public class Player {
         }
 
         // do any necessary rotation
-        direction += rotating * rotateSpeed;
+
+        direction += canRotate ? rotating * rotateSpeed : 0;
         boundDirection();
 
         // find out regular movement

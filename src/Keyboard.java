@@ -62,25 +62,29 @@ public class Keyboard implements KeyListener {
         switch (key) {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                player.speed = 0;
+                player.speed = player.speed == 1 ? 0 : player.speed;
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                player.speed = 0;
+                player.speed = player.speed == -1 ? 0 : player.speed;;
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                player.sideSpeed = 0;
+                player.sideSpeed = player.sideSpeed == 1 ? 0 :
+                    player.sideSpeed;
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                player.sideSpeed = 0;
+                player.sideSpeed = player.sideSpeed == -1 ? 0 : 
+                    player.sideSpeed;
                 break;
             case KeyEvent.VK_Q:
-                player.rotating = 0;
+                player.rotating = player.rotating == -1 ? 0 :
+                    player.rotating;
                 break;
             case KeyEvent.VK_E:
-                player.rotating = 0;
+                player.rotating = player.rotating == 1 ? 0 :
+                    player.rotating;
                 break;
         }
     }
