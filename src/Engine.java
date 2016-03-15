@@ -121,7 +121,7 @@ public class Engine {
         return (hWallFound) ? hDistance : -1;
     
 
-        /*
+       /* 
         // finding horizontal intersection point
         currentY = mapY;
         currentX = playerX + (mapY - playerY) / slope;
@@ -167,6 +167,6 @@ public class Engine {
         }
 
         return vWallFound ? vDistance : (hWallFound ? hDistance : -1);
-        */
+      */  
     }
 }

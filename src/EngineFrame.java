@@ -87,15 +87,6 @@ public class EngineFrame extends JFrame {
             g2.fillRect(i * Engine.WIDTH, (int) fieldOfVision[i] / 2, 
                     1 * Engine.WIDTH, 
                     (int) fieldOfVision[i]);
-            g2.setColor(Color.green);
-            g2.drawLine((int) (player.getPos().x * scale + dx),
-                    (int) (player.getPos().y * scale + dy),
-                    (int) ((player.getPos().x 
-                        + Math.cos(player.getDirection())) * scale + dx),
-                    (int) ((player.getPos().y
-                        + Math.sin(player.getDirection())) * scale + dy));
-
-            //printDraw3DStuff(i);
         }
     }
 

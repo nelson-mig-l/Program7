@@ -105,23 +105,41 @@ public class Player {
             return;
         }
 
+        // do any necessary rotation
         direction += rotating * rotateSpeed;
         boundDirection();
         
+        // find out regular movement
         double dx = speed * moveSpeed * Math.cos(direction);
         double dy = speed * moveSpeed * Math.sin(direction);
 
+        // add strafing movement 
+        dx += sideSpeed * moveSpeed * -1 * Math.sin(direction);
+        dy += sideSpeed * moveSpeed * Math.cos(direction); 
+
+        // speed limit movement in case 
+        // we have both strafing movement and regular
+        // movement
+        double magnitude = Math.sqrt(dx * dx + dy * dy);
+        dx = dx / magnitude * moveSpeed;
+        dy = dy / magnitude * moveSpeed;
+
+        // bound check x
         if (map.inBounds(position.x + dx, position.y) 
                 && map.getTile((int) (position.x + dx), 
                     (int) position.y).getType()
                 != Tile.WALL) {
+            // do the x movement
             position.x += dx;
             
         }
+
+        // bound check y
         if (map.inBounds(position.x, position.y + dy) 
                 && map.getTile((int) (position.x), 
                     (int) (position.y + dy)).getType()
                 != Tile.WALL) {
+            // do the y movement
             position.y += dy;
             
         }
