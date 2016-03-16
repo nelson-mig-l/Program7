@@ -85,7 +85,7 @@ public class Scores {
       BufferedWriter out;
       try {
          out = new BufferedWriter(new FileWriter(
-               new File("").getAbsolutePath() + "/src/high_scores.txt"));
+               System.getProperty("line.separator") + "high_scores.txt"));
          for (int i = 0; i < scores.size(); i++) {
             out.write(scores.get(i).score + "," + scores.get(i).name + "\n");
          }
@@ -104,7 +104,7 @@ public class Scores {
       BufferedReader in;
       try {
          in = new BufferedReader(new FileReader(
-               new File("").getAbsolutePath() + "/src/high_scores.txt"));
+               System.getProperty("line.separator") + "high_scores.txt"));
          ArrayList<String> data = new ArrayList<String>();
          String text;
          while ((text = in.readLine()) != null) {

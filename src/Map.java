@@ -78,9 +78,9 @@ public class Map {
       return level;
    }
 
-   /** 
-    * Convenience method for reading in the level that the map
-    * is currently set to.
+   /**
+    * Convenience method for reading in the level that the map is currently set
+    * to.
     */
    public void read() {
       read(level);
@@ -89,13 +89,15 @@ public class Map {
    /**
     * Reads levels in from their text files.
     *
-    * @param level the number of the level to read in
+    * @param level
+    *           the number of the level to read in
     */
    public void read(int level) {
       BufferedReader in;
       try {
-         in = new BufferedReader(new FileReader(new File("").getAbsolutePath()
-               + "/src/level" + level + ".txt"));
+         in = new BufferedReader(
+               new FileReader(System.getProperty("line.separator") + "level"
+                     + level + ".txt"));
          String[] dimensions = in.readLine().split("x");
          map = new Tile[Integer.parseInt(dimensions[0])][Integer
                .parseInt(dimensions[1])];
