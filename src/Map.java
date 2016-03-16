@@ -69,14 +69,28 @@ public class Map {
       return map[col][row];
    }
 
+   /**
+    * Returns the int number of the current level.
+    * 
+    * @return the int number of the current level
+    */
    public int getLevel() {
       return level;
    }
 
+   /** 
+    * Convenience method for reading in the level that the map
+    * is currently set to.
+    */
    public void read() {
       read(level);
    }
 
+   /**
+    * Reads levels in from their text files.
+    *
+    * @param level the number of the level to read in
+    */
    public void read(int level) {
       BufferedReader in;
       try {
@@ -104,7 +118,4 @@ public class Map {
       }
    }
 
-   public int distanceToWall(Point position, double angle) {
-      return 1;
-   }
 }

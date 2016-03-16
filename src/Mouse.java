@@ -19,6 +19,11 @@ public class Mouse implements MouseMotionListener {
    private Player player;
    private Robot robot;
 
+   /**
+    * Instantiates a mouse.
+    * 
+    * @param player the player to change the direction of.
+    */
    public Mouse(Player player) {
       this.player = player;
       try {
@@ -28,11 +33,24 @@ public class Mouse implements MouseMotionListener {
       }
    }
 
+   /**
+    * Method from mouseMotionListener.
+    *
+    * @param e The MouseEvent triggered by the user.
+    */
    @Override
    public void mouseDragged(MouseEvent e) {
       // do nothing
    }
 
+   /**
+    * Method from mouseMotionListener.
+    * Calculates the distance the mouse has traveled from
+    * the center of the screen, then changes the players direction
+    * by that amount. 
+    *
+    * @param e The MouseEvent triggered by the user.
+    */
    @Override
    public void mouseMoved(MouseEvent e) {
       int halfRaycastingWid = 260;

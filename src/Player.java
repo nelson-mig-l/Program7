@@ -80,6 +80,12 @@ public class Player {
       }
    }
 
+   /**
+    * Getter method for if the player can move fast.
+    * 
+    * @return true if the player isn't in cooldown or using
+    * the speed boost.
+    */
    public boolean canMoveFast() {
       return canMoveFast;
    }
@@ -110,7 +116,11 @@ public class Player {
       // doesn't rotate if we are moving fast
       // because that's the drawback of moving fast!
       direction += canRotate ? rotating * rotateSpeed : 0;
-      boundDirection();
+
+      // makes sure direction is a nice number between
+      // 0 and 2*PI
+      direction %= (2 * Math.PI);
+      direction += (direction < 0) ? (2 * Math.PI) : 0;
 
       // Mouse changes player's direction directly
       // because otherwise it looks hella jerky
@@ -168,11 +178,6 @@ public class Player {
                   .getType() == Tile.FINISH) {
          madeItToFinish = true;
       }
-   }
-
-   private void boundDirection() {
-      direction %= (2 * Math.PI);
-      direction += (direction < 0) ? (2 * Math.PI) : 0;
    }
 
    /**

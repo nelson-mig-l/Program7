@@ -1,7 +1,19 @@
+/**
+ * Plays a sound file repeatedly.
+ * The file happens to be Darude Sandstorm.
+ * oops.
+ *
+ * @author Tim Stoddard
+ * @version program07
+ */
+
 import javax.sound.sampled.*;
 
 public class SoundLooper {
 
+   /**
+    * Starts a thread and runs the Sandstorm.
+    */
    public void loopSound() {
 
       new Thread(new Runnable() {

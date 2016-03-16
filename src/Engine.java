@@ -66,7 +66,6 @@ public class Engine {
     *           the angle of the ray, relative to the player's direction
     * @return distance to the wall along the angle
     */
-
    private double cast(double angle) {
       // cast a ray from player's position in direction angle relative to
       // the player's direction in radians, drawing a rectangle with height

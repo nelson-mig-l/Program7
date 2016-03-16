@@ -1,6 +1,6 @@
 
 /**
- * Frame to display the engine
+ * Frame to display the engine.
  * 
  * @author Tim Stoddard, Sam Lindbloom-Airey
  * @version program007
@@ -133,12 +133,18 @@ public class EngineFrame extends JFrame {
       g2.fillRect(185 + dx, 65 + dy, 30, 18);
    }
 
+   /**
+    * Starts the game at level1.
+    */
    public void init() {
       currLevel = 1;
       updateMap(currLevel);
       startTime = System.currentTimeMillis();
    }
 
+   /**
+    * Move to next level/map and record scores if you win.
+    */
    public void nextLevel() {
       long totalTime = System.currentTimeMillis() - startTime;
       currLevel++;
@@ -174,6 +180,12 @@ public class EngineFrame extends JFrame {
       }
    }
 
+   /**
+    * Setter method for the field of vision, set by Engine.
+    *
+    * @param fieldOfVision a double array of rectangle heights that
+    * has length equal to number of rays cast by the engine.
+    */
    public void setFieldOfVision(double[] fieldOfVision) {
       this.fieldOfVision = Arrays.copyOf(fieldOfVision, fieldOfVision.length);
    }
