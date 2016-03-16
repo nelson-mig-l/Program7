@@ -16,8 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Image;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseMotionListener;
 import java.text.DecimalFormat;
 
 import java.util.Arrays;
@@ -222,7 +220,8 @@ public class EngineFrame extends JFrame {
     private void updateMap(int level) {
         map = new Map(level);
         player = new Player(map);
-        addKeyListener(new Keyboard(player));
+        keyboard = new Keyboard(player);
+        addKeyListener(keyboard);
         addMouseMotionListener(new Mouse(player, this));
     }
 }
