@@ -1,3 +1,5 @@
+import javax.sound.sampled.*;
+
 /**
  * Plays a sound file repeatedly.
  * The file happens to be Darude Sandstorm.
@@ -7,7 +9,6 @@
  * @version program07
  */
 
-import javax.sound.sampled.*;
 
 public class SoundLooper {
 

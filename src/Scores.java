@@ -1,10 +1,3 @@
-/**
- * Reads, writes, and stores all the scores
- * 
- * @author Tim Stoddard
- * @version program007
- */
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,6 +6,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * Reads, writes, and stores all the scores
+ * 
+ * @author Tim Stoddard
+ * @version program007
+ */
 
 public class Scores {
 

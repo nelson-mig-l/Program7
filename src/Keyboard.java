@@ -1,12 +1,12 @@
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 /**
  * A class to handle key input for the engine.
  * 
  * @author Sam Lindbloom-Airey, Tim Stoddard
  * @version program07
  */
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Keyboard implements KeyListener {
 

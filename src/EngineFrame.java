@@ -1,10 +1,3 @@
-/**
- * Frame to display the engine.
- * 
- * @author Tim Stoddard, Sam Lindbloom-Airey
- * @version program007
- */
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
@@ -18,6 +11,13 @@ import java.awt.Image;
 import java.text.DecimalFormat;
 
 import java.util.Arrays;
+
+/**
+ * Frame to display the engine.
+ * 
+ * @author Tim Stoddard, Sam Lindbloom-Airey
+ * @version program007
+ */
 
 public class EngineFrame extends JFrame {
 

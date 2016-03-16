@@ -4,6 +4,7 @@
  * @author Tim Stoddard
  * @version program07
  */
+
 public class Point {
 
    public double x, y;

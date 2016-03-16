@@ -1,3 +1,7 @@
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseEvent;
+import java.awt.Robot;
+import java.awt.AWTException;
 
 /**
  * Listens to mouse input and locks mouse in place
@@ -6,12 +10,6 @@
  * @author Sam Lindbloom-Airey
  * @version program07
  */
-
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseEvent;
-import java.awt.Robot;
-import java.awt.AWTException;
-import javax.swing.JFrame;
 
 public class Mouse implements MouseMotionListener {
 

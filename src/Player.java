@@ -1,13 +1,13 @@
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * The player of the engine class.
  * 
  * @author Sam Lindbloom-Airey, Tim Stoddard
  * @version program007
  */
-
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Player {
 

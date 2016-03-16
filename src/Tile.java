@@ -1,3 +1,4 @@
+import java.awt.Color;
 
 /**
  * A single tile on a Map.
@@ -5,8 +6,6 @@
  * @author Sam Lindbloom-Airey, Tim Stoddard
  * @version program07
  */
-
-import java.awt.Color;
 
 public class Tile {
 

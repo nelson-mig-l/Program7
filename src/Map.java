@@ -1,15 +1,15 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * The map of the engine class.
  * 
  * @author Sam Lindbloom-Airey, Tim Stoddard
  * @version program07
  */
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Map {
 
