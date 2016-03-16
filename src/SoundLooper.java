@@ -1,7 +1,7 @@
 /**
  * Plays a sound file repeatedly.
  * The file happens to be Darude Sandstorm.
- * oops.
+ * #best #song #ever
  *
  * @author Tim Stoddard
  * @version program07

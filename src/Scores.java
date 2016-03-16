@@ -1,4 +1,3 @@
-
 /**
  * Reads, writes, and stores all the scores
  * 

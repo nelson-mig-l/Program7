@@ -1,4 +1,3 @@
-
 /**
  * Frame to display the engine.
  * 
