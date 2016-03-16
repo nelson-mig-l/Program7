@@ -3,9 +3,9 @@ import javax.sound.sampled.*;
 public class SoundLooper {
 
    public void loopSound() {
-      
+
       new Thread(new Runnable() {
-         
+
          public void run() {
             try {
                Clip clip = AudioSystem.getClip();
