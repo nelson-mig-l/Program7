@@ -95,9 +95,7 @@ public class Map {
    public void read(int level) {
       BufferedReader in;
       try {
-         in = new BufferedReader(
-               new FileReader(System.getProperty("line.separator") + "level"
-                     + level + ".txt"));
+         in = new BufferedReader(new FileReader("level" + level + ".txt"));
          String[] dimensions = in.readLine().split("x");
          map = new Tile[Integer.parseInt(dimensions[0])][Integer
                .parseInt(dimensions[1])];
@@ -107,12 +105,6 @@ public class Map {
                map[i][j] = new Tile(Integer.parseInt(data[j]));
             }
          }
-         /*
-          * for (Tile[] sammy : map) { for (Tile sam : sammy) {
-          * System.out.print( sam.getType() == 0 ? "  " : // empty space
-          * (sam.getType() == 1 ?"##" : // wall (sam.getType() == 2 ? "!!" : //
-          * endpoint "^^"))); // solution } System.out.println(); }//
-          */
       } catch (FileNotFoundException e) {
          System.out.println("File not found.");
       } catch (IOException e) {
