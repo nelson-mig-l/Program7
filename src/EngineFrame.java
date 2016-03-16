@@ -67,6 +67,7 @@ public class EngineFrame extends JFrame {
 
       setSize(865, 480);
       setVisible(true);
+      setResizable(false);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
 
